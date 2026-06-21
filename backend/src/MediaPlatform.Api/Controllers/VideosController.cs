@@ -40,11 +40,13 @@ public class VideosController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateVideoRequest req, CancellationToken ct)
     {
         var ownerId = Guid.Parse(User.FindFirst("sub")!.Value);
+        var slug = $"{Slugify(req.Title)}-{Guid.NewGuid():N}";
+        if (slug.Length > 320) slug = slug[..320];
         var video = new Video
         {
             Id = Guid.NewGuid(), Title = req.Title, Description = req.Description,
             CategoryId = req.CategoryId, OwnerId = ownerId, Status = VideoStatus.Draft,
-            Slug = $"{Slugify(req.Title)}-{Guid.NewGuid():N}"[..Math.Min(320, req.Title.Length + 33)]
+            Slug = slug
         };
         _db.Videos.Add(video);
         await _db.SaveChangesAsync(ct);
