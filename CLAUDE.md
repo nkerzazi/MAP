@@ -4,6 +4,8 @@ Guide pour travailler sur ce dépôt. Lis-le avant toute modification.
 
 ## Projet
 
+**Nom du projet : MAP.**
+
 **Plateforme de gestion et de diffusion de contenus vidéo** pour la **MAP (Maghreb
 Arabe Presse)**. Solution interne **entièrement auto-hébergée** : téléversement,
 traitement, stockage et diffusion de vidéos via streaming HLS, **sans aucun service

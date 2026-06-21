@@ -1,5 +1,6 @@
-# Conception — Plateforme de gestion et de diffusion de contenus vidéo (MAP)
+# MAP — Plateforme de gestion et de diffusion de contenus vidéo
 
+> **Nom du projet : MAP**
 > Projet de Fin d'Études — Youssra Zounaki — MAP (Maghreb Arabe Presse) / EHEI Oujda
 > Document de conception (spec) — 2026-06-21
 
@@ -151,7 +152,7 @@ Authentification JWT (Bearer). Réponses d'erreur normalisées via `ProblemDetai
 ## 10. Arborescence du projet
 
 ```
-yousra/
+MAP/
 ├─ CLAUDE.md
 ├─ docker-compose.yml                  # postgres, redis, minio, nginx, api, worker
 ├─ docs/superpowers/specs/2026-06-21-…-design.md
