@@ -12,11 +12,3 @@ public class TranscodingOptions
         new LadderRung { Name = "1080p", Height = 1080, VideoKbps = 5000, AudioKbps = 128 },
     };
 }
-
-public class LadderRung
-{
-    public string Name { get; set; } = string.Empty;
-    public int Height { get; set; }
-    public int VideoKbps { get; set; }
-    public int AudioKbps { get; set; }
-}
