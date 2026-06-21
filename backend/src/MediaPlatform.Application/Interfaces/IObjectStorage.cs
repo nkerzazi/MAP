@@ -20,11 +20,13 @@ public interface IObjectStorage
     Task<string> GetPresignedUrlAsync(string bucket, string key, TimeSpan expiry, CancellationToken ct = default);
 }
 
-/// <summary>Abstraction du pipeline de transcodage (implémentée par FFmpeg → HLS).</summary>
+/// <summary>Transcodage FFmpeg → HLS, travaillant sur le système de fichiers local.</summary>
 public interface IVideoTranscoder
 {
-    /// <summary>Transcode la source en HLS multi-débit et retourne les variantes générées.</summary>
-    Task<IReadOnlyList<RenditionResult>> TranscodeToHlsAsync(string sourceKey, Guid videoId, CancellationToken ct = default);
-}
+    /// <summary>Sonde la hauteur (px) et la durée (s) du fichier source.</summary>
+    Task<(int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default);
 
-public record RenditionResult(string Resolution, int Bitrate, string ManifestKey);
+    /// <summary>Transcode <paramref name="sourcePath"/> vers un échelon HLS dans <paramref name="outDir"/>
+    /// (génère index.m3u8 + segments). Retourne le nom du fichier playlist relatif.</summary>
+    Task<string> TranscodeRungAsync(string sourcePath, string outDir, int height, int videoKbps, int audioKbps, int segmentSeconds, CancellationToken ct = default);
+}
