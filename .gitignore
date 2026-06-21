@@ -1,0 +1,24 @@
+# .NET
+bin/
+obj/
+*.user
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# Env / secrets
+*.env
+appsettings.*.Local.json
+
+# Données locales / médias
+/data/
+*.mp4
+*.ts
+*.m3u8
+
+# IDE
+.vs/
+.idea/
+.vscode/
