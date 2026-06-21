@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPlatform.IntegrationTests", "tests\MediaPlatform.IntegrationTests\MediaPlatform.IntegrationTests.csproj", "{EA135C93-38D6-4F3D-B11F-815FA1C77C4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPlatform.Tests", "tests\MediaPlatform.Tests\MediaPlatform.Tests.csproj", "{375103A5-90C9-4CAC-8D1C-65564347392A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,18 @@ Global
 		{EA135C93-38D6-4F3D-B11F-815FA1C77C4A}.Release|x64.Build.0 = Release|Any CPU
 		{EA135C93-38D6-4F3D-B11F-815FA1C77C4A}.Release|x86.ActiveCfg = Release|Any CPU
 		{EA135C93-38D6-4F3D-B11F-815FA1C77C4A}.Release|x86.Build.0 = Release|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Debug|x64.Build.0 = Debug|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Debug|x86.Build.0 = Debug|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Release|x64.ActiveCfg = Release|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Release|x64.Build.0 = Release|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Release|x86.ActiveCfg = Release|Any CPU
+		{375103A5-90C9-4CAC-8D1C-65564347392A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +111,6 @@ Global
 		{30B720D7-981F-4B4A-8A3C-541048134494} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{D88EAA25-6A04-4660-98AE-6E5D16C0254B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{EA135C93-38D6-4F3D-B11F-815FA1C77C4A} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{375103A5-90C9-4CAC-8D1C-65564347392A} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
