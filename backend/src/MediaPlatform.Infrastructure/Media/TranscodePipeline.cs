@@ -42,6 +42,16 @@ public class TranscodePipeline : ITranscodePipeline
         var work = Directory.CreateTempSubdirectory("map-transcode-");
         try
         {
+            // 0. Nettoyer les sorties d'une tentative précédente (idempotence des retries).
+            await _storage.EnsureBucketAsync(_minio.HlsBucket, ct);
+            await _storage.DeletePrefixAsync(_minio.HlsBucket, $"hls/{videoId}/", ct);
+            var stale = await _db.VideoRenditions.Where(r => r.VideoId == videoId).ToListAsync(ct);
+            if (stale.Count > 0)
+            {
+                _db.VideoRenditions.RemoveRange(stale);
+                await _db.SaveChangesAsync(ct);
+            }
+
             // 1. Télécharger + concaténer les parts dans l'ordre.
             var sourcePath = Path.Combine(work.FullName, "source.bin");
             var parts = await _storage.ListKeysAsync(_minio.OriginalsBucket, IUploadService.PartsPrefix(videoId), ct);
@@ -61,7 +71,6 @@ public class TranscodePipeline : ITranscodePipeline
             var rungs = HlsLadder.Select(height, _opts);
 
             // 3. Transcoder chaque échelon + uploader.
-            await _storage.EnsureBucketAsync(_minio.HlsBucket, ct);
             var master = new StringBuilder("#EXTM3U\n#EXT-X-VERSION:3\n");
             foreach (var rung in rungs)
             {
