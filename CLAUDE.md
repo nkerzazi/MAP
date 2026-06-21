@@ -18,7 +18,8 @@ Conception détaillée : [docs/superpowers/specs/2026-06-21-plateforme-streaming
 
 - **Backend** : ASP.NET Core 8 Web API (C# 12), découpage Domain/Application/Infrastructure/Api.
 - **ORM / DB** : Entity Framework Core 8 + **PostgreSQL 16**.
-- **Jobs async** : Hangfire (file de transcodage) sur **Redis**.
+- **Jobs async** : Hangfire (file de transcodage), **storage PostgreSQL** (pas de storage
+  Redis en OSS). Redis reste disponible pour du cache applicatif ultérieur.
 - **Stockage objet** : **MinIO** (S3-compatible, auto-hébergé) — vidéos + segments HLS.
 - **Traitement vidéo** : **FFmpeg 6** → **HLS** multi-débit (360p/720p/1080p).
 - **Frontend** : Angular 17+ (app unique, modules `admin` / `editor` / `viewer`).

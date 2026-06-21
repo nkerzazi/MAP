@@ -27,12 +27,24 @@ services:
     build: { context: ./backend, dockerfile: src/MediaPlatform.Api/Dockerfile }
     depends_on: [postgres, redis, minio]
     ports: ["8080:8080"]
+    environment:
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=mediaplatform;Username=media;Password=media"
+      Minio__Endpoint: "minio:9000"
+      Minio__AccessKey: "minioadmin"
+      Minio__SecretKey: "minioadmin"
+      Minio__UseSsl: "false"
 
   # Worker Hangfire (transcodage FFmpeg → HLS). Image incluant ffmpeg.
   worker:
     build: { context: ./backend, dockerfile: src/MediaPlatform.Api/Dockerfile }
     command: ["--worker"]
     depends_on: [postgres, redis, minio]
+    environment:
+      ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=mediaplatform;Username=media;Password=media"
+      Minio__Endpoint: "minio:9000"
+      Minio__AccessKey: "minioadmin"
+      Minio__SecretKey: "minioadmin"
+      Minio__UseSsl: "false"
 
   nginx:
     image: nginx:alpine
