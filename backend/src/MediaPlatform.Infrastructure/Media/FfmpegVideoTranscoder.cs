@@ -9,12 +9,16 @@ public class FfmpegVideoTranscoder : IVideoTranscoder
 {
     public async Task<(int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default)
     {
-        var height = await RunAsync("ffprobe",
+        var heightRaw = await RunAsync("ffprobe",
             $"-v error -select_streams v:0 -show_entries stream=height -of csv=p=0 \"{sourcePath}\"", ct);
-        var duration = await RunAsync("ffprobe",
+        var durationRaw = await RunAsync("ffprobe",
             $"-v error -show_entries format=duration -of csv=p=0 \"{sourcePath}\"", ct);
-        return (int.Parse(height.Trim()),
-                double.Parse(duration.Trim(), CultureInfo.InvariantCulture));
+
+        if (string.IsNullOrWhiteSpace(heightRaw))
+            throw new InvalidOperationException($"ffprobe n'a renvoyé aucune hauteur pour « {sourcePath} » (flux vidéo absent ?).");
+
+        return (int.Parse(heightRaw.Trim(), CultureInfo.InvariantCulture),
+                double.Parse(durationRaw.Trim(), CultureInfo.InvariantCulture));
     }
 
     public async Task<string> TranscodeRungAsync(string sourcePath, string outDir, int height, int videoKbps,
@@ -42,11 +46,12 @@ public class FfmpegVideoTranscoder : IVideoTranscoder
             }
         };
         p.Start();
-        var stdout = await p.StandardOutput.ReadToEndAsync(ct);
-        var stderr = await p.StandardError.ReadToEndAsync(ct);
+        var stdoutTask = p.StandardOutput.ReadToEndAsync(ct);
+        var stderrTask = p.StandardError.ReadToEndAsync(ct);
+        await Task.WhenAll(stdoutTask, stderrTask);
         await p.WaitForExitAsync(ct);
         if (p.ExitCode != 0)
-            throw new InvalidOperationException($"{file} a échoué (code {p.ExitCode}) : {stderr}");
-        return stdout;
+            throw new InvalidOperationException($"{file} a échoué (code {p.ExitCode}) : {await stderrTask}");
+        return await stdoutTask;
     }
 }
