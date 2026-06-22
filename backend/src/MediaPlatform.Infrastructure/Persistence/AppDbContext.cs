@@ -23,6 +23,7 @@ public class AppDbContext : DbContext
     public DbSet<Share> Shares => Set<Share>();
     public DbSet<ViewEvent> ViewEvents => Set<ViewEvent>();
     public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+    public DbSet<SystemSetting> SystemSettings => Set<SystemSetting>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -127,6 +128,13 @@ public class AppDbContext : DbContext
             e.Property(x => x.Action).IsRequired().HasMaxLength(100);
             e.Property(x => x.EntityType).IsRequired().HasMaxLength(100);
             e.HasIndex(x => x.OccurredAt);
+        });
+
+        b.Entity<SystemSetting>(e =>
+        {
+            e.HasKey(x => x.Key);
+            e.Property(x => x.Key).HasMaxLength(200);
+            e.Property(x => x.Value).IsRequired();
         });
 
         base.OnModelCreating(b);
