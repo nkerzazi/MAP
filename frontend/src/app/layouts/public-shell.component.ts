@@ -17,6 +17,7 @@ import { AuthStore } from '../core/auth/auth.store';
           <span class="bg-ink-500 rounded-md px-2 py-1 font-semibold">FR · ع</span>
           <a *ngIf="!store.isAuthenticated()" routerLink="/auth/login" class="bg-map-red rounded-lg px-3 py-1.5 font-semibold">Connexion</a>
           <a *ngIf="store.isAuthenticated() && (store.hasRole('Editeur') || store.hasRole('Admin'))" routerLink="/studio" class="underline">Studio</a>
+          <a *ngIf="store.isAuthenticated() && store.hasRole('Admin')" routerLink="/admin" class="underline">Admin</a>
           <button *ngIf="store.isAuthenticated()" (click)="store.logout()" class="underline">Déconnexion</button>
         </div>
       </header>

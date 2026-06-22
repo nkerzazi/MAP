@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { editorGuard } from './core/auth/auth.guard';
+import { adminGuard, editorGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -18,6 +18,18 @@ export const routes: Routes = [
       { path: '', loadComponent: () => import('./features/editor/editor-dashboard.component').then((m) => m.EditorDashboardComponent) },
       { path: 'upload', loadComponent: () => import('./features/editor/video-upload.component').then((m) => m.VideoUploadComponent) },
       { path: 'videos/:id/edit', loadComponent: () => import('./features/editor/video-edit.component').then((m) => m.VideoEditComponent) }
+    ]
+  },
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadComponent: () => import('./layouts/admin-shell.component').then((m) => m.AdminShellComponent),
+    children: [
+      { path: '', loadComponent: () => import('./features/admin/admin-stats.component').then((m) => m.AdminStatsComponent) },
+      { path: 'users', loadComponent: () => import('./features/admin/admin-users.component').then((m) => m.AdminUsersComponent) },
+      { path: 'categories', loadComponent: () => import('./features/admin/admin-categories.component').then((m) => m.AdminCategoriesComponent) },
+      { path: 'audit', loadComponent: () => import('./features/admin/admin-audit.component').then((m) => m.AdminAuditComponent) },
+      { path: 'config', loadComponent: () => import('./features/admin/admin-config.component').then((m) => m.AdminConfigComponent) }
     ]
   },
   {
