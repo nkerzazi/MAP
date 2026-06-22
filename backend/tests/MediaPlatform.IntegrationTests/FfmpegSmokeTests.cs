@@ -33,7 +33,8 @@ public class FfmpegSmokeTests
         { gen!.WaitForExit(); }
 
         var t = new FfmpegVideoTranscoder();
-        var (height, duration) = await t.ProbeAsync(source);
+        var (width, height, duration) = await t.ProbeAsync(source);
+        width.Should().Be(640);
         height.Should().Be(480);
         duration.Should().BeApproximately(2, 0.5);
 
