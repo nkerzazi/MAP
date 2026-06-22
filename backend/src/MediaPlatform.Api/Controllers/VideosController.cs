@@ -1,5 +1,6 @@
 using Hangfire;
 using MediaPlatform.Api.Controllers.Dtos;
+using MediaPlatform.Application.Admin;
 using MediaPlatform.Application.Catalog;
 using MediaPlatform.Application.Engagement;
 using MediaPlatform.Application.Interfaces;
@@ -24,11 +25,21 @@ public class VideosController : ControllerBase
     private readonly ICatalogService _catalog;
     private readonly IStreamingService _streaming;
     private readonly IEngagementService _engagement;
+    private readonly IAnalyticsService _analytics;
 
     public VideosController(AppDbContext db, IUploadService upload, IBackgroundJobClient jobs,
-        ICatalogService catalog, IStreamingService streaming, IEngagementService engagement)
+        ICatalogService catalog, IStreamingService streaming, IEngagementService engagement, IAnalyticsService analytics)
     {
-        _db = db; _upload = upload; _jobs = jobs; _catalog = catalog; _streaming = streaming; _engagement = engagement;
+        _db = db; _upload = upload; _jobs = jobs; _catalog = catalog; _streaming = streaming;
+        _engagement = engagement; _analytics = analytics;
+    }
+
+    /// <summary>Télémétrie de visionnage (anonyme autorisé).</summary>
+    [HttpPost("{id:guid}/views")]
+    public async Task<IActionResult> RecordView(Guid id, [FromBody] RecordViewRequest req, CancellationToken ct)
+    {
+        try { await _analytics.RecordViewAsync(id, req.WatchSeconds, req.SessionId, CurrentUserIdOrNull(), ct); return NoContent(); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
     }
 
     // --- Engagement ---

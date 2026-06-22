@@ -30,6 +30,9 @@ builder.Services.AddScoped<TranscodeVideoJob>();
 builder.Services.AddScoped<ICatalogService, MediaPlatform.Infrastructure.Catalog.CatalogService>();
 builder.Services.AddScoped<IStreamingService, MediaPlatform.Infrastructure.Streaming.StreamingService>();
 builder.Services.AddScoped<IEngagementService, MediaPlatform.Infrastructure.Engagement.EngagementService>();
+builder.Services.AddScoped<IAuditService, MediaPlatform.Infrastructure.Admin.AuditService>();
+builder.Services.AddScoped<IAnalyticsService, MediaPlatform.Infrastructure.Admin.AnalyticsService>();
+builder.Services.AddScoped<IAdminService, MediaPlatform.Infrastructure.Admin.AdminService>();
 
 // --- Auth (Identity hasher + JWT + RBAC) ---
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));

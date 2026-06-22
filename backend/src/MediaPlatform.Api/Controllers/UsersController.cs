@@ -1,9 +1,8 @@
 using MediaPlatform.Api.Controllers.Dtos;
-using MediaPlatform.Domain.Entities;
-using MediaPlatform.Infrastructure.Persistence;
+using MediaPlatform.Application.Admin;
+using MediaPlatform.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace MediaPlatform.Api.Controllers;
 
@@ -12,37 +11,30 @@ namespace MediaPlatform.Api.Controllers;
 [Authorize(Roles = "Admin")]
 public class UsersController : ControllerBase
 {
-    private readonly AppDbContext _db;
-    public UsersController(AppDbContext db) => _db = db;
+    private readonly IAdminService _admin;
+    public UsersController(IAdminService admin) => _admin = admin;
+
+    private Guid ActorId() => Guid.Parse(User.FindFirst("sub")!.Value);
 
     [HttpGet]
-    public async Task<IActionResult> List(CancellationToken ct)
-    {
-        var users = await _db.Users
-            .Include(u => u.Roles).ThenInclude(ur => ur.Role)
-            .Select(u => new
-            {
-                u.Id, u.Email, u.DisplayName, u.IsActive,
-                roles = u.Roles.Select(ur => ur.Role!.Name).ToArray()
-            })
-            .ToListAsync(ct);
-        return Ok(users);
-    }
+    public async Task<IActionResult> List(CancellationToken ct) => Ok(await _admin.ListUsersAsync(ct));
+
+    [HttpPut("{id:guid}")]
+    public Task<IActionResult> Update(Guid id, [FromBody] UpdateUserRequest req, CancellationToken ct)
+        => Run(() => _admin.UpdateUserAsync(id, req.IsActive, req.DisplayName, ActorId(), ct));
 
     [HttpPost("{id:guid}/roles")]
-    public async Task<IActionResult> AssignRole(Guid id, [FromBody] AssignRoleRequest req, CancellationToken ct)
+    public Task<IActionResult> AssignRole(Guid id, [FromBody] AssignRoleRequest req, CancellationToken ct)
+        => Run(() => _admin.AssignRoleAsync(id, req.Role, ActorId(), ct));
+
+    [HttpDelete("{id:guid}/roles/{role}")]
+    public Task<IActionResult> RemoveRole(Guid id, string role, CancellationToken ct)
+        => Run(() => _admin.RemoveRoleAsync(id, role, ActorId(), ct));
+
+    private async Task<IActionResult> Run(Func<Task> action)
     {
-        var user = await _db.Users.Include(u => u.Roles).FirstOrDefaultAsync(u => u.Id == id, ct);
-        if (user is null) return Problem(statusCode: 404, detail: "Utilisateur introuvable.");
-
-        var role = await _db.Roles.FirstOrDefaultAsync(r => r.Name == req.Role, ct);
-        if (role is null) return Problem(statusCode: 400, detail: $"Rôle inconnu : {req.Role}.");
-
-        if (user.Roles.All(ur => ur.RoleId != role.Id)) // idempotent
-        {
-            user.Roles.Add(new UserRole { UserId = user.Id, RoleId = role.Id });
-            await _db.SaveChangesAsync(ct);
-        }
-        return Ok(new { id, role = role.Name });
+        try { await action(); return NoContent(); }
+        catch (UserNotFoundException) { return Problem(statusCode: 404, detail: "Utilisateur introuvable."); }
+        catch (UnknownRoleException ex) { return Problem(statusCode: 400, detail: ex.Message); }
     }
 }
