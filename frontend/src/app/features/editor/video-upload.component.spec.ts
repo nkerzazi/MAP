@@ -31,4 +31,15 @@ describe('VideoUploadComponent', () => {
     expect(api.complete).toHaveBeenCalledWith('v1', 3);
     expect(nav).toHaveBeenCalledWith(['/studio/videos', 'v1', 'edit']);
   });
+
+  it('le bouton « Choisir » ouvre l’explorateur (déclenche l’input fichier masqué)', () => {
+    const fixture = TestBed.createComponent(VideoUploadComponent);
+    fixture.detectChanges();
+    const input: HTMLInputElement = fixture.nativeElement.querySelector('input[type=file]');
+    const clickSpy = jest.spyOn(input, 'click');
+    const chooseBtn = Array.from(fixture.nativeElement.querySelectorAll('button'))
+      .find((el) => (el as HTMLElement).textContent?.includes('Choisir')) as HTMLButtonElement;
+    chooseBtn.click();
+    expect(clickSpy).toHaveBeenCalled();
+  });
 });
