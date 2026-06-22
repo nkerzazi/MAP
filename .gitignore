@@ -12,11 +12,10 @@ dist/
 *.env
 appsettings.*.Local.json
 
-# Données locales / médias
+# Données locales / médias (les segments HLS .ts/.m3u8 vivent dans MinIO, pas dans le repo ;
+# ne pas ignorer *.ts ici, sous peine d'exclure tout le TypeScript du frontend Angular)
 /data/
 *.mp4
-*.ts
-*.m3u8
 
 # IDE
 .vs/

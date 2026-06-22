@@ -7,17 +7,19 @@ namespace MediaPlatform.Infrastructure.Media;
 /// <summary>Transcodeur basé sur les binaires ffmpeg/ffprobe (présents dans l'image worker).</summary>
 public class FfmpegVideoTranscoder : IVideoTranscoder
 {
-    public async Task<(int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default)
+    public async Task<(int Width, int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default)
     {
-        var heightRaw = await RunAsync("ffprobe",
-            $"-v error -select_streams v:0 -show_entries stream=height -of csv=p=0 \"{sourcePath}\"", ct);
+        var wh = await RunAsync("ffprobe",
+            $"-v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 \"{sourcePath}\"", ct);
         var durationRaw = await RunAsync("ffprobe",
             $"-v error -show_entries format=duration -of csv=p=0 \"{sourcePath}\"", ct);
 
-        if (string.IsNullOrWhiteSpace(heightRaw))
-            throw new InvalidOperationException($"ffprobe n'a renvoyé aucune hauteur pour « {sourcePath} » (flux vidéo absent ?).");
+        var parts = wh.Trim().Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (parts.Length < 2)
+            throw new InvalidOperationException($"ffprobe n'a pas renvoyé width,height pour « {sourcePath} » (flux vidéo absent ?).");
 
-        return (int.Parse(heightRaw.Trim(), CultureInfo.InvariantCulture),
+        return (int.Parse(parts[0], CultureInfo.InvariantCulture),
+                int.Parse(parts[1], CultureInfo.InvariantCulture),
                 double.Parse(durationRaw.Trim(), CultureInfo.InvariantCulture));
     }
 

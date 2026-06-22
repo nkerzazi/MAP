@@ -67,7 +67,7 @@ public class TranscodePipeline : ITranscodePipeline
             }
 
             // 2. Sonder + sélectionner la ladder.
-            var (height, duration) = await _transcoder.ProbeAsync(sourcePath, ct);
+            var (srcWidth, height, duration) = await _transcoder.ProbeAsync(sourcePath, ct);
             var rungs = HlsLadder.Select(height, _opts);
 
             // 3. Transcoder chaque échelon + uploader.
@@ -87,7 +87,8 @@ public class TranscodePipeline : ITranscodePipeline
                 }
 
                 var bandwidth = (rung.VideoKbps + rung.AudioKbps) * 1000;
-                master.Append($"#EXT-X-STREAM-INF:BANDWIDTH={bandwidth},RESOLUTION=x{rung.Height}\n");
+                var rungWidth = EvenWidth(srcWidth, height, rung.Height);
+                master.Append($"#EXT-X-STREAM-INF:BANDWIDTH={bandwidth},RESOLUTION={rungWidth}x{rung.Height},CODECS=\"avc1.640028,mp4a.40.2\"\n");
                 master.Append($"{rung.Name}/{playlist}\n");
 
                 _db.VideoRenditions.Add(new VideoRendition
@@ -124,5 +125,13 @@ public class TranscodePipeline : ITranscodePipeline
         {
             try { work.Delete(recursive: true); } catch { /* best effort */ }
         }
+    }
+
+    /// <summary>Largeur (paire) d'un échelon en conservant le ratio source.</summary>
+    private static int EvenWidth(int srcWidth, int srcHeight, int targetHeight)
+    {
+        if (srcHeight <= 0) return targetHeight; // garde-fou
+        var w = (int)Math.Round((double)srcWidth * targetHeight / srcHeight);
+        return w % 2 == 0 ? w : w + 1;
     }
 }

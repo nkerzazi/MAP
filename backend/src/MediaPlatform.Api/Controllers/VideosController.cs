@@ -2,6 +2,7 @@ using Hangfire;
 using MediaPlatform.Api.Controllers.Dtos;
 using MediaPlatform.Application.Catalog;
 using MediaPlatform.Application.Interfaces;
+using MediaPlatform.Application.Streaming;
 using MediaPlatform.Domain.Entities;
 using MediaPlatform.Domain.Enums;
 using MediaPlatform.Infrastructure.Media;
@@ -20,10 +21,12 @@ public class VideosController : ControllerBase
     private readonly IUploadService _upload;
     private readonly IBackgroundJobClient _jobs;
     private readonly ICatalogService _catalog;
+    private readonly IStreamingService _streaming;
 
-    public VideosController(AppDbContext db, IUploadService upload, IBackgroundJobClient jobs, ICatalogService catalog)
+    public VideosController(AppDbContext db, IUploadService upload, IBackgroundJobClient jobs,
+        ICatalogService catalog, IStreamingService streaming)
     {
-        _db = db; _upload = upload; _jobs = jobs; _catalog = catalog;
+        _db = db; _upload = upload; _jobs = jobs; _catalog = catalog; _streaming = streaming;
     }
 
     // --- Catalogue public (anonyme) ---
@@ -42,8 +45,30 @@ public class VideosController : ControllerBase
         catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
     }
 
+    /// <summary>URL du manifeste HLS + variantes (consommé par le lecteur).</summary>
     [HttpGet("{id:guid}/stream")]
-    public IActionResult Stream(Guid id) => Ok(new { id, manifestUrl = (string?)null, renditions = Array.Empty<object>() });
+    public async Task<IActionResult> Stream(Guid id, CancellationToken ct)
+    {
+        try
+        {
+            var renditions = await _streaming.GetRenditionsAsync(id, CurrentUserIdOrNull(), IsAdmin(), ct);
+            return Ok(new { id, manifestUrl = $"/api/v1/videos/{id}/hls/master.m3u8", renditions });
+        }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+    }
+
+    /// <summary>Proxy HLS : streame manifeste/segments depuis MinIO.</summary>
+    [HttpGet("{id:guid}/hls/{**path}")]
+    public async Task<IActionResult> Hls(Guid id, string path, CancellationToken ct)
+    {
+        try
+        {
+            var obj = await _streaming.OpenHlsAsync(id, path, CurrentUserIdOrNull(), IsAdmin(), ct);
+            return File(obj.Content, obj.ContentType, enableRangeProcessing: true);
+        }
+        catch (ArgumentException) { return Problem(statusCode: 400, detail: "Chemin HLS invalide."); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+    }
 
     // --- Édition (propriétaire seul, ou Admin) ---
 

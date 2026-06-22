@@ -39,8 +39,8 @@ public class TranscodePipelineTests : IAsyncLifetime, IClassFixture<MinioFixture
     /// <summary>Transcodeur factice : source "haute" (height 4000), produit une playlist vide.</summary>
     private sealed class FakeTranscoder : IVideoTranscoder
     {
-        public Task<(int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default)
-            => Task.FromResult((4000, 12.5));
+        public Task<(int Width, int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default)
+            => Task.FromResult((3840, 2160, 12.5));
         public Task<string> TranscodeRungAsync(string sourcePath, string outDir, int height, int v, int a, int seg, CancellationToken ct = default)
         {
             Directory.CreateDirectory(outDir);
@@ -83,11 +83,15 @@ public class TranscodePipelineTests : IAsyncLifetime, IClassFixture<MinioFixture
         video.Renditions.Select(r => r.Resolution).Should().BeEquivalentTo(new[] { "360p", "720p", "1080p" });
         (await Storage().ListKeysAsync("hls", $"hls/{vid}/")).Should().Contain($"hls/{vid}/master.m3u8");
         (await Storage().ListKeysAsync("originals", IUploadService.PartsPrefix(vid))).Should().BeEmpty(); // parts nettoyées
+
+        using var masterStream = await Storage().GetAsync("hls", $"hls/{vid}/master.m3u8");
+        var masterText = await new StreamReader(masterStream).ReadToEndAsync();
+        masterText.Should().Contain("RESOLUTION=").And.Contain("x360").And.Contain("CODECS=");
     }
 
     private sealed class ThrowingTranscoder : IVideoTranscoder
     {
-        public Task<(int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default)
+        public Task<(int Width, int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default)
             => throw new InvalidOperationException("boom");
         public Task<string> TranscodeRungAsync(string s, string o, int h, int v, int a, int seg, CancellationToken ct = default)
             => throw new InvalidOperationException("boom");

@@ -23,8 +23,8 @@ public interface IObjectStorage
 /// <summary>Transcodage FFmpeg → HLS, travaillant sur le système de fichiers local.</summary>
 public interface IVideoTranscoder
 {
-    /// <summary>Sonde la hauteur (px) et la durée (s) du fichier source.</summary>
-    Task<(int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default);
+    /// <summary>Sonde la largeur, la hauteur (px) et la durée (s) du fichier source.</summary>
+    Task<(int Width, int Height, double DurationSeconds)> ProbeAsync(string sourcePath, CancellationToken ct = default);
 
     /// <summary>Transcode <paramref name="sourcePath"/> vers un échelon HLS dans <paramref name="outDir"/>
     /// (génère index.m3u8 + segments). Retourne le nom du fichier playlist relatif.</summary>
