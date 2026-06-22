@@ -74,6 +74,8 @@ public class AppDbContext : DbContext
             e.HasIndex(x => x.Status);
             e.HasOne(x => x.Owner).WithMany().HasForeignKey(x => x.OwnerId).OnDelete(DeleteBehavior.Restrict);
             e.HasOne(x => x.Category).WithMany().HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.SetNull);
+            e.HasGeneratedTsVectorColumn(x => x.SearchVector, "french", x => new { x.Title, x.Description })
+             .HasIndex(x => x.SearchVector).HasMethod("GIN");
         });
 
         b.Entity<VideoTag>(e =>

@@ -1,5 +1,6 @@
 using Hangfire;
 using MediaPlatform.Api.Controllers.Dtos;
+using MediaPlatform.Application.Catalog;
 using MediaPlatform.Application.Interfaces;
 using MediaPlatform.Domain.Entities;
 using MediaPlatform.Domain.Enums;
@@ -18,28 +19,66 @@ public class VideosController : ControllerBase
     private readonly AppDbContext _db;
     private readonly IUploadService _upload;
     private readonly IBackgroundJobClient _jobs;
+    private readonly ICatalogService _catalog;
 
-    public VideosController(AppDbContext db, IUploadService upload, IBackgroundJobClient jobs)
+    public VideosController(AppDbContext db, IUploadService upload, IBackgroundJobClient jobs, ICatalogService catalog)
     {
-        _db = db; _upload = upload; _jobs = jobs;
+        _db = db; _upload = upload; _jobs = jobs; _catalog = catalog;
     }
 
-    [HttpGet]
-    public IActionResult List([FromQuery] string? q, [FromQuery] int page = 1)
-        => Ok(new { items = Array.Empty<object>(), page, q });
+    // --- Catalogue public (anonyme) ---
 
+    /// <summary>Catalogue public (vidéos publiées), recherche ?q=, filtres et pagination.</summary>
+    [HttpGet]
+    public async Task<IActionResult> List([FromQuery] string? q, [FromQuery] Guid? categoryId,
+        [FromQuery] string? tag, [FromQuery] int page = 1, CancellationToken ct = default)
+        => Ok(await _catalog.SearchPublishedAsync(new CatalogQuery(q, categoryId, tag, page), ct));
+
+    /// <summary>Détail d'une vidéo (publiée pour tous ; non publiée réservée au propriétaire/Admin).</summary>
     [HttpGet("{id:guid}")]
-    public IActionResult Get(Guid id) => Ok(new { id });
+    public async Task<IActionResult> Get(Guid id, CancellationToken ct)
+    {
+        try { return Ok(await _catalog.GetDetailAsync(id, CurrentUserIdOrNull(), IsAdmin(), ct)); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+    }
 
     [HttpGet("{id:guid}/stream")]
     public IActionResult Stream(Guid id) => Ok(new { id, manifestUrl = (string?)null, renditions = Array.Empty<object>() });
+
+    // --- Édition (propriétaire seul, ou Admin) ---
+
+    /// <summary>Met à jour les métadonnées (titre, description, catégorie, tags).</summary>
+    [HttpPut("{id:guid}")]
+    [Authorize(Roles = "Editeur,Admin")]
+    public Task<IActionResult> Update(Guid id, [FromBody] UpdateVideoRequest req, CancellationToken ct)
+        => CatalogAction(() => _catalog.UpdateAsync(id, req, CurrentUserId(), IsAdmin(), ct));
+
+    /// <summary>Publie la vidéo (Ready/Archived → Published).</summary>
+    [HttpPost("{id:guid}/publish")]
+    [Authorize(Roles = "Editeur,Admin")]
+    public Task<IActionResult> Publish(Guid id, CancellationToken ct)
+        => CatalogVoid(() => _catalog.PublishAsync(id, CurrentUserId(), IsAdmin(), ct));
+
+    /// <summary>Archive la vidéo (Published → Archived).</summary>
+    [HttpPost("{id:guid}/archive")]
+    [Authorize(Roles = "Editeur,Admin")]
+    public Task<IActionResult> Archive(Guid id, CancellationToken ct)
+        => CatalogVoid(() => _catalog.ArchiveAsync(id, CurrentUserId(), IsAdmin(), ct));
+
+    /// <summary>Vidéos de l'éditeur courant (tous statuts), paginées.</summary>
+    [HttpGet("mine")]
+    [Authorize(Roles = "Editeur,Admin")]
+    public async Task<IActionResult> Mine([FromQuery] int page = 1, CancellationToken ct = default)
+        => Ok(await _catalog.GetMineAsync(CurrentUserId(), page, ct));
+
+    // --- Upload (Phase 2, éditeur) ---
 
     /// <summary>Initialise une vidéo (Draft). Réservé aux éditeurs.</summary>
     [HttpPost]
     [Authorize(Roles = "Editeur")]
     public async Task<IActionResult> Create([FromBody] CreateVideoRequest req, CancellationToken ct)
     {
-        var ownerId = Guid.Parse(User.FindFirst("sub")!.Value);
+        var ownerId = CurrentUserId();
         var slug = $"{Slugify(req.Title)}-{Guid.NewGuid():N}";
         if (slug.Length > 320) slug = slug[..320];
         var video = new Video
@@ -83,6 +122,29 @@ public class VideosController : ControllerBase
         await _db.SaveChangesAsync(ct);
         _jobs.Enqueue<TranscodeVideoJob>(j => j.ExecuteAsync(id));
         return Ok(new { id, status = video.Status.ToString() });
+    }
+
+    // --- Helpers ---
+
+    private Guid CurrentUserId() => Guid.Parse(User.FindFirst("sub")!.Value);
+    private Guid? CurrentUserIdOrNull() => User.FindFirst("sub") is { } c ? Guid.Parse(c.Value) : null;
+    private bool IsAdmin() => User.Identity?.IsAuthenticated == true && User.IsInRole("Admin");
+
+    private async Task<IActionResult> CatalogAction<T>(Func<Task<T>> action)
+    {
+        try { return Ok(await action()); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+        catch (NotVideoOwnerException) { return Problem(statusCode: 403, detail: "Action réservée au propriétaire."); }
+        catch (CategoryNotFoundException ex) { return Problem(statusCode: 400, detail: ex.Message); }
+        catch (InvalidVideoStateException ex) { return Problem(statusCode: 409, detail: ex.Message); }
+    }
+
+    private async Task<IActionResult> CatalogVoid(Func<Task> action)
+    {
+        try { await action(); return Ok(); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+        catch (NotVideoOwnerException) { return Problem(statusCode: 403, detail: "Action réservée au propriétaire."); }
+        catch (InvalidVideoStateException ex) { return Problem(statusCode: 409, detail: ex.Message); }
     }
 
     private static string Slugify(string s) =>

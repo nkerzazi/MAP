@@ -25,6 +25,9 @@ public class Video
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
     public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
 
+    /// <summary>Vecteur de recherche full-text (titre + description), généré par PostgreSQL.</summary>
+    public NpgsqlTypes.NpgsqlTsVector SearchVector { get; set; } = null!;
+
     public ICollection<VideoRendition> Renditions { get; set; } = new List<VideoRendition>();
     public ICollection<VideoTag> Tags { get; set; } = new List<VideoTag>();
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
