@@ -29,6 +29,7 @@ builder.Services.AddScoped<ITranscodePipeline, TranscodePipeline>();
 builder.Services.AddScoped<TranscodeVideoJob>();
 builder.Services.AddScoped<ICatalogService, MediaPlatform.Infrastructure.Catalog.CatalogService>();
 builder.Services.AddScoped<IStreamingService, MediaPlatform.Infrastructure.Streaming.StreamingService>();
+builder.Services.AddScoped<IEngagementService, MediaPlatform.Infrastructure.Engagement.EngagementService>();
 
 // --- Auth (Identity hasher + JWT + RBAC) ---
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
