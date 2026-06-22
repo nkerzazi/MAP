@@ -7,22 +7,23 @@ import { VideoCardComponent } from '../../shared/ui/video-card.component';
 import { SearchBarComponent } from '../../shared/ui/search-bar.component';
 import { PaginationComponent } from '../../shared/ui/pagination.component';
 import { SpinnerComponent } from '../../shared/ui/spinner.component';
+import { TranslatePipe } from '../../core/i18n/translate.pipe';
 
 @Component({
   selector: 'app-catalog-page',
   standalone: true,
-  imports: [CommonModule, VideoCardComponent, SearchBarComponent, PaginationComponent, SpinnerComponent],
+  imports: [CommonModule, VideoCardComponent, SearchBarComponent, PaginationComponent, SpinnerComponent, TranslatePipe],
   template: `
     <section class="space-y-5">
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <h1 class="text-xl font-bold text-ink">Catalogue</h1>
+        <h1 class="text-xl font-bold text-ink">{{ 'catalog.title' | t }}</h1>
         <div class="sm:ms-auto sm:w-80"><app-search-bar (search)="onSearch($event)"></app-search-bar></div>
       </div>
 
       <div class="flex flex-wrap gap-2">
         <button (click)="filterCategory(null)"
                 class="px-3 py-1 rounded-full text-sm border"
-                [class]="!categoryId() ? 'bg-ink text-white border-ink' : 'border-line text-ink'">Toutes</button>
+                [class]="!categoryId() ? 'bg-ink text-white border-ink' : 'border-line text-ink'">{{ 'catalog.all' | t }}</button>
         <button *ngFor="let c of categories()" (click)="filterCategory(c.id)"
                 class="px-3 py-1 rounded-full text-sm border"
                 [class]="categoryId() === c.id ? 'bg-ink text-white border-ink' : 'border-line text-ink'">{{ c.name }}</button>
@@ -31,7 +32,7 @@ import { SpinnerComponent } from '../../shared/ui/spinner.component';
       <div *ngIf="loading()" class="flex justify-center py-10"><app-spinner></app-spinner></div>
 
       <div *ngIf="!loading()">
-        <p *ngIf="items().length === 0" class="text-muted py-10 text-center">Aucune vidéo trouvée.</p>
+        <p *ngIf="items().length === 0" class="text-muted py-10 text-center">{{ 'catalog.empty' | t }}</p>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <app-video-card *ngFor="let v of items()" [video]="v"></app-video-card>
         </div>
