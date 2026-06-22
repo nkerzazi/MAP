@@ -21,3 +21,6 @@ appsettings.*.Local.json
 .vs/
 .idea/
 .vscode/
+
+# Brainstorming visual companion artifacts
+.superpowers/
