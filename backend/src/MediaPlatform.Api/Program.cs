@@ -28,6 +28,8 @@ builder.Services.AddScoped<IVideoTranscoder, FfmpegVideoTranscoder>();
 builder.Services.AddScoped<ITranscodePipeline, TranscodePipeline>();
 builder.Services.AddScoped<TranscodeVideoJob>();
 builder.Services.AddScoped<ICatalogService, MediaPlatform.Infrastructure.Catalog.CatalogService>();
+builder.Services.AddScoped<ICategoryService, MediaPlatform.Infrastructure.Catalog.CategoryService>();
+builder.Services.AddScoped<ITagService, MediaPlatform.Infrastructure.Catalog.TagService>();
 builder.Services.AddScoped<IStreamingService, MediaPlatform.Infrastructure.Streaming.StreamingService>();
 builder.Services.AddScoped<IEngagementService, MediaPlatform.Infrastructure.Engagement.EngagementService>();
 builder.Services.AddScoped<IAuditService, MediaPlatform.Infrastructure.Admin.AuditService>();
