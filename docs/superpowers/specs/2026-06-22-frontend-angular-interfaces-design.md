@@ -128,26 +128,55 @@ diffusion).
 (router, `provideHttpClient` + interceptors, i18n), `index.html`, configuration
 Tailwind / PostCSS, configuration Jest + Cypress, et l'arborescence de la section 3.
 
-## 10. Dépendance backend & ordre de livraison
+## 10. État du backend & endpoints consommés
 
-**Contrainte clé d'honnêteté :** plusieurs endpoints consommés par ce frontend
-n'existent pas encore côté backend (auth complet, upload, statistiques, administration —
-la Phase 1 auth n'est pas finalisée). Le frontend est donc découpé pour livrer d'abord
-ce qui est consommable, puis suivre la complétion de l'API :
+**Correction de cadrage (vérifiée le 2026-06-22 contre le code) :** contrairement à une
+hypothèse initiale, le backend a traversé les **Phases 1 à 6** et est quasi complet. Les
+endpoints suivants existent déjà et sont consommables immédiatement :
+
+- **Auth** : `POST /auth/register`, `POST /auth/login`, `GET /auth/me`
+  (JWT unique, sans refresh token ; re-login à l'expiration).
+- **Catalogue/Vidéo** : `GET /videos` (q, categoryId, tag, page), `GET /videos/{id}`,
+  `GET /videos/mine`, `PUT /videos/{id}`, `POST /videos/{id}/publish`·`/archive`.
+- **Upload** : `POST /videos` (draft), `POST /videos/{id}/upload/chunk`, `/upload/complete`.
+- **Diffusion** : `GET /videos/{id}/stream`, `GET /videos/{id}/hls/{**path}` (proxy MinIO).
+- **Engagement** : commentaires (GET/POST/DELETE), likes (POST/DELETE), shares,
+  `GET /videos/{id}/engagement`, `POST /videos/{id}/views`.
+- **Admin** : `GET /stats`, `GET /audit`, `GET/PUT /config`.
+- **Users** : `GET /users`, `PUT /users/{id}`, `POST /users/{id}/roles`,
+  `DELETE /users/{id}/roles/{role}`.
+
+**Seuls trous identifiés**, à combler avant le frontend (pas de mocks) :
+`GET /categories` + CRUD Admin des catégories, et `GET /tags` (autocomplétion). Ces
+endpoints sont requis par le filtre du catalogue et les formulaires éditeur/admin.
+
+### Ordre de livraison du frontend
 
 1. **Socle + design system + espace public** : scaffolding, Tailwind/tokens, coquille
-   publique, catalogue + page vidéo + lecteur enrichi (endpoints `videos` déjà esquissés).
+   publique, catalogue + filtres (catégories/tags) + page vidéo + lecteur enrichi.
 2. **Auth & espace Éditeur** : login/register, guards, interceptor, dashboard éditeur,
    upload chunké + suivi transcodage, métadonnées, publish/archive.
-3. **Espace Admin** : utilisateurs/rôles, statistiques, audit, configuration.
+3. **Espace Admin** : utilisateurs/rôles, statistiques, audit, configuration, catégories.
 4. **i18n FR/AR + RTL** transversal et finitions d'accessibilité.
 
-Chaque phase reste livrable indépendamment ; les espaces dont l'API n'est pas prête
-peuvent être développés contre des contrats typés (et mocks) en attendant.
+Chaque phase reste livrable indépendamment ; l'API étant déjà en place, le frontend se
+développe contre des **contrats typés réels** (pas de mocks).
 
 ## 11. Hors périmètre
 
-- Implémentation des endpoints backend manquants (couvert par les phases backend).
 - Application mobile native.
 - Thème sombre (envisageable ultérieurement pour le viewer ; non requis ici).
 - Moteur de recherche externe (recherche = PostgreSQL full-text côté API).
+- Refresh token (le backend utilise un JWT unique ; à introduire côté API si besoin).
+
+## 12. Pré-requis backend à implémenter (avant Phase 1 frontend)
+
+Endpoints à ajouter, en suivant les conventions existantes (service scoped + controller
+mince + `ProblemDetails` + tests HTTP) :
+
+- `GET /api/v1/categories` — liste publique des catégories (Id, Name, Slug).
+- `POST /api/v1/categories` — création (Admin) ; slug dérivé du nom.
+- `PUT /api/v1/categories/{id}` — renommage (Admin).
+- `DELETE /api/v1/categories/{id}` — suppression (Admin) ; refus si des vidéos y sont
+  rattachées (ou détachement selon règle retenue).
+- `GET /api/v1/tags` — liste/autocomplétion des tags (filtre `?q=` optionnel).
