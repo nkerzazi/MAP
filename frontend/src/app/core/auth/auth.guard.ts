@@ -17,3 +17,11 @@ export const editorGuard: CanActivateFn = () => {
   router.navigate(['/auth/login']);
   return false;
 };
+
+export const adminGuard: CanActivateFn = () => {
+  const store = inject(AuthStore);
+  const router = inject(Router);
+  if (store.isAuthenticated() && store.hasRole('Admin')) return true;
+  router.navigate(['/auth/login']);
+  return false;
+};
