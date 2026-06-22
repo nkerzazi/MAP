@@ -26,4 +26,13 @@ describe('EditorDashboardComponent', () => {
     expect(text).toContain('Mon reportage');
     expect(text).toContain('En traitement');
   });
+
+  it('en cas d’erreur API : arrête le spinner et affiche une erreur', () => {
+    const fixture = TestBed.createComponent(EditorDashboardComponent);
+    fixture.detectChanges();
+    http.expectOne('/api/v1/videos/mine?page=1').flush('boom', { status: 500, statusText: 'Server Error' });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.loading()).toBe(false);
+    expect(fixture.componentInstance.error()).toBe(true);
+  });
 });

@@ -15,6 +15,7 @@ export const TRANSLATIONS: Record<Lang, Record<string, string>> = {
     'action.save': 'Enregistrer',
     'action.delete': 'Supprimer',
     'action.add': 'Ajouter',
+    'state.error': 'Une erreur est survenue. Veuillez réessayer.',
     // Catalogue public
     'catalog.title': 'Catalogue',
     'catalog.search': 'Rechercher une vidéo…',
@@ -87,6 +88,7 @@ export const TRANSLATIONS: Record<Lang, Record<string, string>> = {
     'action.save': 'حفظ',
     'action.delete': 'حذف',
     'action.add': 'إضافة',
+    'state.error': 'حدث خطأ. يرجى المحاولة مرة أخرى.',
     // Catalogue public
     'catalog.title': 'الفهرس',
     'catalog.search': 'ابحث عن فيديو…',

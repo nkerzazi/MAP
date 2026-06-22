@@ -38,4 +38,14 @@ describe('CatalogPageComponent', () => {
     expect(req.request.params.get('q')).toBe('sommet');
     req.flush({ items: [], total: 0, page: 1, pageSize: 20 });
   });
+
+  it('en cas d’erreur API : arrête le spinner et affiche une erreur', () => {
+    const fixture = TestBed.createComponent(CatalogPageComponent);
+    fixture.detectChanges();
+    http.expectOne('/api/v1/categories').flush([]);
+    http.expectOne((r) => r.url === '/api/v1/videos').flush('boom', { status: 500, statusText: 'Server Error' });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.loading()).toBe(false);
+    expect(fixture.componentInstance.error()).toBe(true);
+  });
 });

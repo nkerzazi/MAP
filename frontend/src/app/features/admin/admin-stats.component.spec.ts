@@ -25,4 +25,12 @@ describe('AdminStatsComponent', () => {
     expect(text).toContain('248');
     expect(text).toContain('Top sujet');
   });
+
+  it('en cas d’erreur API : affiche une erreur (pas de spinner infini)', () => {
+    const fixture = TestBed.createComponent(AdminStatsComponent);
+    fixture.detectChanges();
+    http.expectOne('/api/v1/stats').flush('boom', { status: 500, statusText: 'Server Error' });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.error()).toBe(true);
+  });
 });

@@ -18,8 +18,9 @@ import { TranslatePipe } from '../../core/i18n/translate.pipe';
     </div>
 
     <div *ngIf="loading()" class="flex justify-center py-10"><app-spinner></app-spinner></div>
+    <p *ngIf="error()" class="text-map-red py-10 text-center">{{ 'state.error' | t }}</p>
 
-    <table *ngIf="!loading()" class="w-full bg-white border border-line rounded-lg overflow-hidden">
+    <table *ngIf="!loading() && !error()" class="w-full bg-white border border-line rounded-lg overflow-hidden">
       <thead class="text-left text-xs text-muted border-b border-line">
         <tr><th class="p-3">{{ 'editor.col.title' | t }}</th><th class="p-3">{{ 'editor.col.status' | t }}</th><th class="p-3"></th></tr>
       </thead>
@@ -38,8 +39,12 @@ export class EditorDashboardComponent implements OnInit {
   private api = inject(EditorVideoService);
   items = signal<VideoListItem[]>([]);
   loading = signal(true);
+  error = signal(false);
 
   ngOnInit(): void {
-    this.api.mine(1).subscribe((res) => { this.items.set(res.items); this.loading.set(false); });
+    this.api.mine(1).subscribe({
+      next: (res) => { this.items.set(res.items); this.loading.set(false); },
+      error: () => { this.loading.set(false); this.error.set(true); }
+    });
   }
 }

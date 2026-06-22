@@ -31,7 +31,9 @@ import { TranslatePipe } from '../../core/i18n/translate.pipe';
 
       <div *ngIf="loading()" class="flex justify-center py-10"><app-spinner></app-spinner></div>
 
-      <div *ngIf="!loading()">
+      <p *ngIf="error()" class="text-map-red py-10 text-center">{{ 'state.error' | t }}</p>
+
+      <div *ngIf="!loading() && !error()">
         <p *ngIf="items().length === 0" class="text-muted py-10 text-center">{{ 'catalog.empty' | t }}</p>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
           <app-video-card *ngFor="let v of items()" [video]="v"></app-video-card>
@@ -53,6 +55,7 @@ export class CatalogPageComponent implements OnInit {
   page = signal(1);
   pageSize = signal(20);
   loading = signal(false);
+  error = signal(false);
   q = signal('');
   categoryId = signal<string | null>(null);
 
@@ -63,13 +66,20 @@ export class CatalogPageComponent implements OnInit {
 
   private load(): void {
     this.loading.set(true);
+    this.error.set(false);
     this.catalog
       .list({ q: this.q() || undefined, categoryId: this.categoryId() ?? undefined, page: this.page() })
-      .subscribe((res) => {
-        this.items.set(res.items);
-        this.total.set(res.total);
-        this.pageSize.set(res.pageSize);
-        this.loading.set(false);
+      .subscribe({
+        next: (res) => {
+          this.items.set(res.items);
+          this.total.set(res.total);
+          this.pageSize.set(res.pageSize);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.loading.set(false);
+          this.error.set(true);
+        }
       });
   }
 

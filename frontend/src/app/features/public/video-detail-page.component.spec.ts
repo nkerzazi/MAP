@@ -27,4 +27,14 @@ describe('VideoDetailPageComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('Sommet économique');
   });
+
+  it('en cas d’erreur (404) : arrête le spinner et affiche une erreur', () => {
+    const fixture = TestBed.createComponent(VideoDetailPageComponent);
+    fixture.componentRef.setInput('id', 'v1');
+    fixture.detectChanges();
+    http.expectOne('/api/v1/videos/v1').flush('introuvable', { status: 404, statusText: 'Not Found' });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.loading()).toBe(false);
+    expect(fixture.componentInstance.error()).toBe(true);
+  });
 });
