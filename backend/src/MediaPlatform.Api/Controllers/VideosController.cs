@@ -1,6 +1,7 @@
 using Hangfire;
 using MediaPlatform.Api.Controllers.Dtos;
 using MediaPlatform.Application.Catalog;
+using MediaPlatform.Application.Engagement;
 using MediaPlatform.Application.Interfaces;
 using MediaPlatform.Application.Streaming;
 using MediaPlatform.Domain.Entities;
@@ -22,11 +23,71 @@ public class VideosController : ControllerBase
     private readonly IBackgroundJobClient _jobs;
     private readonly ICatalogService _catalog;
     private readonly IStreamingService _streaming;
+    private readonly IEngagementService _engagement;
 
     public VideosController(AppDbContext db, IUploadService upload, IBackgroundJobClient jobs,
-        ICatalogService catalog, IStreamingService streaming)
+        ICatalogService catalog, IStreamingService streaming, IEngagementService engagement)
     {
-        _db = db; _upload = upload; _jobs = jobs; _catalog = catalog; _streaming = streaming;
+        _db = db; _upload = upload; _jobs = jobs; _catalog = catalog; _streaming = streaming; _engagement = engagement;
+    }
+
+    // --- Engagement ---
+
+    [HttpGet("{id:guid}/comments")]
+    public async Task<IActionResult> ListComments(Guid id, [FromQuery] int page = 1, CancellationToken ct = default)
+    {
+        try { return Ok(await _engagement.ListCommentsAsync(id, page, CurrentUserIdOrNull(), IsAdmin(), ct)); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+    }
+
+    [HttpPost("{id:guid}/comments")]
+    [Authorize]
+    public async Task<IActionResult> AddComment(Guid id, [FromBody] CreateCommentRequest req, CancellationToken ct)
+    {
+        try { return Ok(await _engagement.AddCommentAsync(id, req.Body, CurrentUserId(), ct)); }
+        catch (ArgumentException ex) { return Problem(statusCode: 400, detail: ex.Message); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+    }
+
+    [HttpDelete("{id:guid}/comments/{commentId:guid}")]
+    [Authorize]
+    public async Task<IActionResult> DeleteComment(Guid id, Guid commentId, CancellationToken ct)
+    {
+        try { await _engagement.DeleteCommentAsync(id, commentId, CurrentUserId(), IsAdmin(), ct); return NoContent(); }
+        catch (CommentNotFoundException) { return Problem(statusCode: 404, detail: "Commentaire introuvable."); }
+        catch (NotCommentAuthorException) { return Problem(statusCode: 403, detail: "Action réservée à l'auteur."); }
+    }
+
+    [HttpPost("{id:guid}/likes")]
+    [Authorize]
+    public async Task<IActionResult> Like(Guid id, CancellationToken ct)
+    {
+        try { return Ok(await _engagement.LikeAsync(id, CurrentUserId(), ct)); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+    }
+
+    [HttpDelete("{id:guid}/likes")]
+    [Authorize]
+    public async Task<IActionResult> Unlike(Guid id, CancellationToken ct)
+    {
+        try { return Ok(await _engagement.UnlikeAsync(id, CurrentUserId(), ct)); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+    }
+
+    [HttpPost("{id:guid}/shares")]
+    [Authorize]
+    public async Task<IActionResult> Share(Guid id, [FromBody] ShareRequest req, CancellationToken ct)
+    {
+        try { return Ok(new { shareCount = await _engagement.ShareAsync(id, req.Channel, CurrentUserId(), ct) }); }
+        catch (ArgumentException ex) { return Problem(statusCode: 400, detail: ex.Message); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
+    }
+
+    [HttpGet("{id:guid}/engagement")]
+    public async Task<IActionResult> Engagement(Guid id, CancellationToken ct)
+    {
+        try { return Ok(await _engagement.GetSummaryAsync(id, CurrentUserIdOrNull(), IsAdmin(), ct)); }
+        catch (VideoNotFoundException) { return Problem(statusCode: 404, detail: "Vidéo introuvable."); }
     }
 
     // --- Catalogue public (anonyme) ---
