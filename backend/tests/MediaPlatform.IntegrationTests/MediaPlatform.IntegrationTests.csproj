@@ -14,8 +14,10 @@
     <PackageReference Include="Testcontainers.Minio" Version="3.*" />
     <PackageReference Include="Xunit.SkippableFact" Version="1.4.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\MediaPlatform.Infrastructure\MediaPlatform.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\MediaPlatform.Api\MediaPlatform.Api.csproj" />
   </ItemGroup>
 </Project>

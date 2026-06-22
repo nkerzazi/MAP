@@ -10,6 +10,8 @@
     <PackageReference Include="Minio" Version="6.0.*" />
     <PackageReference Include="Hangfire.Core" Version="1.8.*" />
     <PackageReference Include="Hangfire.PostgreSql" Version="1.20.*" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.*" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MediaPlatform.Application\MediaPlatform.Application.csproj" />
