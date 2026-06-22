@@ -4,4 +4,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- Pour le type NpgsqlTsVector (recherche full-text). -->
+    <PackageReference Include="Npgsql" Version="8.0.*" />
+  </ItemGroup>
 </Project>
