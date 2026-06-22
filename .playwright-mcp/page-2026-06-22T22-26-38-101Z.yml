@@ -1,0 +1,19 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - link "MAP Vidéo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - text: MAP Vidéo
+    - generic [ref=e8]:
+      - button "FR · ع" [ref=e9] [cursor=pointer]
+      - link "Connexion" [ref=e10] [cursor=pointer]:
+        - /url: /auth/login
+  - main [ref=e11]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - heading "Catalogue" [level=1] [ref=e15]
+        - generic [ref=e18]:
+          - searchbox "Rechercher une vidéo…" [ref=e19]
+          - button "Rechercher" [ref=e20] [cursor=pointer]
+      - button "Toutes" [ref=e22] [cursor=pointer]
+      - paragraph [ref=e23]: Une erreur est survenue. Veuillez réessayer.
+  - contentinfo [ref=e24]: Maghreb Arabe Presse — plateforme vidéo interne

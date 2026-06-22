@@ -1,0 +1,75 @@
+[     390ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:20083
+[     549ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4200/favicon.ico:0
+[     680ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[     685ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:7037
+[     692ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[     694ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:7037
+[   29860ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:20083
+[   29910ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[   29911ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[   29912ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:7037
+[   29912ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:7037
+[  335569ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[  361160ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:20083
+[  362803ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[  362808ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[  362810ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:7037
+[  362810ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-LKVAI3R5.js?v=227e90ea:7037
+[ 1063584ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 1063713ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[ 1063719ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[ 1063722ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 1063724ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 2538274ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[ 2538756ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 2539567ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[ 2539832ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[ 2539837ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 2539839ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 2733427ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[ 2733457ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:4200/:0
+[ 3142858ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 3143834ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[ 3143840ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 3143841ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[ 3143844ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 3672252ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 3672457ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[ 3672468ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[ 3672474ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 3672475ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 6834860ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[ 6835027ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:4200/:0
+[ 6840139ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 6840589ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[ 6840595ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[ 6840600ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 6840606ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[ 6843131ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[ 6843143ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:4200/:0
+[10087343ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[10087527ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[10087531ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[10087535ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[10087538ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[10088466ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[10088469ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:4200/:0
+[14932759ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[14932949ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[14932950ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[14932951ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[14932952ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[15149561ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[15149583ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:4200/:0
+[15247168ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[15247427ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[15247429ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[15247431ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[15247435ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[15803202ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[15803231ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:4200/:0
+[15936035ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[15936162ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/categories:0
+[15936164ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135
+[15936171ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:4200/api/v1/videos?page=1:0
+[15936173ms] [ERROR] ERROR HttpErrorResponse @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:4135

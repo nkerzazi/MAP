@@ -1,0 +1,22 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - link "MAP Vidéo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - text: MAP Vidéo
+    - generic [ref=e8]:
+      - button "FR · ع" [ref=e9] [cursor=pointer]
+      - button "Déconnexion" [ref=e10] [cursor=pointer]
+  - main [ref=e11]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - heading "Catalogue" [level=1] [ref=e15]
+        - generic [ref=e18]:
+          - searchbox "Rechercher une vidéo…" [ref=e19]
+          - button "Rechercher" [ref=e20] [cursor=pointer]
+      - generic [ref=e21]:
+        - button "Toutes" [ref=e22] [cursor=pointer]
+        - button "Actualités" [ref=e23] [cursor=pointer]
+        - button "Culture & patrimoine" [ref=e24] [cursor=pointer]
+        - button "Sport national" [ref=e25] [cursor=pointer]
+      - status "Chargement" [ref=e28]
+  - contentinfo [ref=e29]: Maghreb Arabe Presse — plateforme vidéo interne

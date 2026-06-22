@@ -1,0 +1,19 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - link "فيديو وم ع" [ref=e27] [cursor=pointer]:
+      - /url: /
+      - text: فيديو وم ع
+    - generic [ref=e8]:
+      - button "FR · ع" [active] [ref=e9] [cursor=pointer]
+      - link "تسجيل الدخول" [ref=e28] [cursor=pointer]:
+        - /url: /auth/login
+  - main [ref=e11]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - heading "الفهرس" [level=1] [ref=e29]
+        - generic [ref=e18]:
+          - searchbox "Rechercher une vidéo…" [ref=e19]
+          - button "Rechercher" [ref=e20] [cursor=pointer]
+      - button "الكل" [ref=e30] [cursor=pointer]
+      - status "Chargement" [ref=e25]
+  - contentinfo [ref=e26]: وكالة المغرب العربي للأنباء — منصة الفيديو الداخلية
