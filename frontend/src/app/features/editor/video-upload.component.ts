@@ -4,19 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { EditorVideoService } from '../../core/api/editor-video.service';
+import { TranslatePipe } from '../../core/i18n/translate.pipe';
+import { TranslationService } from '../../core/i18n/translation.service';
 
 const CHUNK_SIZE = 5 * 1024 * 1024;
 
 @Component({
   selector: 'app-video-upload',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   template: `
-    <h1 class="text-xl font-bold text-ink mb-4">Téléverser une vidéo</h1>
+    <h1 class="text-xl font-bold text-ink mb-4">{{ 'editor.upload.title' | t }}</h1>
     <div class="max-w-lg space-y-3 bg-white border border-line rounded-lg p-5">
-      <input [(ngModel)]="title" name="title" required placeholder="Titre"
+      <input [(ngModel)]="title" name="title" required placeholder="{{ 'editor.upload.titlePlaceholder' | t }}"
              class="w-full px-3 py-2 rounded-lg border border-line" />
-      <textarea [(ngModel)]="description" name="description" placeholder="Description"
+      <textarea [(ngModel)]="description" name="description" placeholder="{{ 'editor.upload.descPlaceholder' | t }}"
                 class="w-full px-3 py-2 rounded-lg border border-line"></textarea>
       <input type="file" accept="video/*" (change)="onFile($event)" />
       <div *ngIf="uploading()" class="h-2 bg-line rounded-full overflow-hidden">
@@ -24,13 +26,14 @@ const CHUNK_SIZE = 5 * 1024 * 1024;
       </div>
       <p *ngIf="error()" class="text-sm text-map-red">{{ error() }}</p>
       <button (click)="submit()" [disabled]="uploading() || !file || !title"
-              class="px-4 py-2 rounded-lg bg-ink text-white font-semibold disabled:opacity-50">Lancer le téléversement</button>
+              class="px-4 py-2 rounded-lg bg-ink text-white font-semibold disabled:opacity-50">{{ 'editor.upload.start' | t }}</button>
     </div>
   `
 })
 export class VideoUploadComponent {
   private api = inject(EditorVideoService);
   private router = inject(Router);
+  private ts = inject(TranslationService);
   title = '';
   description = '';
   file: File | null = null;
@@ -59,7 +62,7 @@ export class VideoUploadComponent {
       await firstValueFrom(this.api.complete(id, total));
       this.router.navigate(['/studio/videos', id, 'edit']);
     } catch {
-      this.error.set('Échec du téléversement.');
+      this.error.set(this.ts.t('editor.upload.error'));
     } finally {
       this.uploading.set(false);
     }

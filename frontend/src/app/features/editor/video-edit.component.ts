@@ -6,28 +6,29 @@ import { CategoryService } from '../../core/api/category.service';
 import { EditorVideoService } from '../../core/api/editor-video.service';
 import { Category } from '../../core/models/video.models';
 import { StatusBadgeComponent } from '../../shared/ui/status-badge.component';
+import { TranslatePipe } from '../../core/i18n/translate.pipe';
 
 @Component({
   selector: 'app-video-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule, StatusBadgeComponent],
+  imports: [CommonModule, FormsModule, StatusBadgeComponent, TranslatePipe],
   template: `
     <div class="max-w-lg space-y-3">
       <div class="flex items-center gap-3">
-        <h1 class="text-xl font-bold text-ink">Éditer la vidéo</h1>
+        <h1 class="text-xl font-bold text-ink">{{ 'editor.edit.title' | t }}</h1>
         <app-status-badge [status]="status()"></app-status-badge>
       </div>
-      <input [(ngModel)]="title" name="title" placeholder="Titre" class="w-full px-3 py-2 rounded-lg border border-line" />
-      <textarea [(ngModel)]="description" name="description" placeholder="Description" class="w-full px-3 py-2 rounded-lg border border-line"></textarea>
+      <input [(ngModel)]="title" name="title" placeholder="{{ 'editor.upload.titlePlaceholder' | t }}" class="w-full px-3 py-2 rounded-lg border border-line" />
+      <textarea [(ngModel)]="description" name="description" placeholder="{{ 'editor.upload.descPlaceholder' | t }}" class="w-full px-3 py-2 rounded-lg border border-line"></textarea>
       <select [(ngModel)]="categoryId" name="cat" class="w-full px-3 py-2 rounded-lg border border-line">
-        <option [ngValue]="null">— Sans catégorie —</option>
+        <option [ngValue]="null">{{ 'editor.edit.noCategory' | t }}</option>
         <option *ngFor="let c of categories()" [ngValue]="c.id">{{ c.name }}</option>
       </select>
-      <input [(ngModel)]="tagsCsv" name="tags" placeholder="Tags (séparés par des virgules)" class="w-full px-3 py-2 rounded-lg border border-line" />
+      <input [(ngModel)]="tagsCsv" name="tags" placeholder="{{ 'editor.edit.tags' | t }}" class="w-full px-3 py-2 rounded-lg border border-line" />
       <div class="flex gap-2">
-        <button (click)="save()" class="px-4 py-2 rounded-lg bg-ink text-white font-semibold">Enregistrer</button>
-        <button (click)="publish()" class="px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold">Publier</button>
-        <button (click)="archive()" class="px-4 py-2 rounded-lg border border-line">Archiver</button>
+        <button (click)="save()" class="px-4 py-2 rounded-lg bg-ink text-white font-semibold">{{ 'action.save' | t }}</button>
+        <button (click)="publish()" class="px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold">{{ 'editor.edit.publish' | t }}</button>
+        <button (click)="archive()" class="px-4 py-2 rounded-lg border border-line">{{ 'editor.edit.archive' | t }}</button>
       </div>
       <p *ngIf="message()" class="text-sm text-emerald-700">{{ message() }}</p>
     </div>
