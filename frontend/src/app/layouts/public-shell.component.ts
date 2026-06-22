@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { AuthStore } from '../core/auth/auth.store';
 
 @Component({
   selector: 'app-public-shell',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, CommonModule],
   template: `
     <div class="min-h-screen flex flex-col bg-paper">
       <header class="h-14 bg-ink text-white flex items-center gap-4 px-4">
@@ -13,7 +15,9 @@ import { RouterLink, RouterOutlet } from '@angular/router';
         </a>
         <div class="ms-auto flex items-center gap-3 text-sm">
           <span class="bg-ink-500 rounded-md px-2 py-1 font-semibold">FR · ع</span>
-          <a class="bg-map-red rounded-lg px-3 py-1.5 font-semibold">Connexion</a>
+          <a *ngIf="!store.isAuthenticated()" routerLink="/auth/login" class="bg-map-red rounded-lg px-3 py-1.5 font-semibold">Connexion</a>
+          <a *ngIf="store.isAuthenticated() && (store.hasRole('Editeur') || store.hasRole('Admin'))" routerLink="/studio" class="underline">Studio</a>
+          <button *ngIf="store.isAuthenticated()" (click)="store.logout()" class="underline">Déconnexion</button>
         </div>
       </header>
       <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
@@ -23,4 +27,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     </div>
   `
 })
-export class PublicShellComponent {}
+export class PublicShellComponent {
+  store = inject(AuthStore);
+}
