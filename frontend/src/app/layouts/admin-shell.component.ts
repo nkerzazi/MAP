@@ -19,6 +19,7 @@ import { TranslatePipe } from '../core/i18n/translate.pipe';
         <a routerLink="/admin/categories" routerLinkActive="bg-map-red text-white" class="px-3 py-2 rounded-lg">{{ 'admin.nav.categories' | t }}</a>
         <a routerLink="/admin/audit" routerLinkActive="bg-map-red text-white" class="px-3 py-2 rounded-lg">{{ 'admin.nav.audit' | t }}</a>
         <a routerLink="/admin/config" routerLinkActive="bg-map-red text-white" class="px-3 py-2 rounded-lg">{{ 'admin.nav.config' | t }}</a>
+        <a routerLink="/studio" class="px-3 py-2 rounded-lg mt-4 border-t border-ink-600/40 pt-3">→ {{ 'nav.studio' | t }}</a>
       </aside>
       <div class="flex-1 flex flex-col">
         <header class="h-14 bg-white border-b border-line flex items-center px-4">

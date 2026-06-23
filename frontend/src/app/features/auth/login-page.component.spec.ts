@@ -28,6 +28,19 @@ describe('LoginPageComponent', () => {
     expect(nav).toHaveBeenCalledWith(['/studio']);
   });
 
+  it('un administrateur est redirigé vers /admin', () => {
+    const nav = jest.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    const fixture = TestBed.createComponent(LoginPageComponent);
+    const cmp = fixture.componentInstance;
+    fixture.detectChanges();
+    cmp.email = 'sa'; cmp.password = 'sa';
+    cmp.submit();
+    http.expectOne('/api/v1/auth/login').flush({
+      token: 't', expiresAt: '2030-01-01T00:00:00Z', userId: 'u', email: 'sa', displayName: 'Super administrateur', roles: ['Admin']
+    });
+    expect(nav).toHaveBeenCalledWith(['/admin']);
+  });
+
   it('affiche une erreur au 401', () => {
     const fixture = TestBed.createComponent(LoginPageComponent);
     const cmp = fixture.componentInstance;

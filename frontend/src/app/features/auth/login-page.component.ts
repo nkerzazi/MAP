@@ -37,7 +37,11 @@ export class LoginPageComponent {
     this.loading.set(true);
     this.error.set(null);
     this.store.login({ email: this.email, password: this.password }).subscribe({
-      next: () => { this.loading.set(false); this.router.navigate(['/studio']); },
+      next: () => {
+        this.loading.set(false);
+        // Un administrateur arrive sur son espace Admin ; un éditeur sur le Studio.
+        this.router.navigate([this.store.hasRole('Admin') ? '/admin' : '/studio']);
+      },
       error: (e: HttpErrorResponse) => {
         this.loading.set(false);
         this.error.set(e.error?.detail ?? 'Identifiants invalides.');
