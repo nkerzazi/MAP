@@ -13,7 +13,7 @@ import { TranslatePipe } from '../core/i18n/translate.pipe';
     <div class="min-h-screen flex flex-col bg-paper">
       <header class="h-14 bg-ink text-white flex items-center gap-4 px-4">
         <a routerLink="/" class="flex items-center gap-2 font-extrabold">
-          <span class="w-2.5 h-2.5 bg-map-red rounded-sm"></span> {{ 'brand.video' | t }}
+          <img src="assets/map-logo.png" alt="MAP" class="h-9 w-auto rounded bg-white p-0.5" /> {{ 'brand.video' | t }}
         </a>
         <div class="ms-auto flex items-center gap-3 text-sm">
           <button (click)="i18n.toggle()" class="bg-ink-500 rounded-md px-2 py-1 font-semibold">

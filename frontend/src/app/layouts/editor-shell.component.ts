@@ -12,7 +12,7 @@ import { TranslatePipe } from '../core/i18n/translate.pipe';
     <div class="min-h-screen flex bg-paper">
       <aside class="w-56 bg-ink text-ink-300 flex flex-col p-3 gap-1">
         <a routerLink="/" class="flex items-center gap-2 font-extrabold text-white mb-4 px-2">
-          <span class="w-2.5 h-2.5 bg-map-red rounded-sm"></span> {{ 'brand.studio' | t }}
+          <img src="assets/map-logo.png" alt="MAP" class="h-8 w-auto rounded bg-white p-0.5" /> {{ 'brand.studio' | t }}
         </a>
         <a routerLink="/studio" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="bg-map-red text-white"
            class="px-3 py-2 rounded-lg">{{ 'editor.nav.dashboard' | t }}</a>
