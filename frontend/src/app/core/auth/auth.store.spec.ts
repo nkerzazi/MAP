@@ -29,12 +29,25 @@ describe('AuthStore', () => {
     expect(localStorage.getItem('map_token')).toBe('jwt-123');
   });
 
-  it('au logout : purge tout', () => {
+  it('au logout : purge tout (token + utilisateur)', () => {
     store.login({ email: 'ed@map.ma', password: 'p' }).subscribe();
     http.expectOne('/api/v1/auth/login').flush(FAKE);
     store.logout();
     expect(store.isAuthenticated()).toBe(false);
     expect(store.user()).toBeNull();
     expect(localStorage.getItem('map_token')).toBeNull();
+    expect(localStorage.getItem('map_user')).toBeNull();
+  });
+
+  it('restaure la session (token + rôles) depuis localStorage au démarrage', () => {
+    // simule un rafraîchissement de page : localStorage déjà rempli, instance fraîche
+    localStorage.setItem('map_token', 'jwt-123');
+    localStorage.setItem('map_user', JSON.stringify({
+      userId: 'u1', email: 'ed@map.ma', displayName: 'Éditeur', roles: ['Editeur']
+    }));
+    const restored = TestBed.runInInjectionContext(() => new AuthStore());
+    expect(restored.isAuthenticated()).toBe(true);
+    expect(restored.hasRole('Editeur')).toBe(true);
+    expect(restored.user()?.displayName).toBe('Éditeur');
   });
 });
