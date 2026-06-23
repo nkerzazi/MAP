@@ -37,4 +37,18 @@ public class AdminSeederTests : IAsyncLifetime
         await using var check = NewDb();
         (await check.Users.CountAsync()).Should().Be(0);
     }
+
+    [Fact]
+    public async Task Seeds_super_admin_sa_with_admin_role()
+    {
+        await using (var db = NewDb())
+            await new AdminSeeder(db, new PasswordHasher<User>()).SeedAsync("sa", "sa", "Super administrateur");
+
+        await using var check = NewDb();
+        var sa = await check.Users.Include(u => u.Roles).ThenInclude(r => r.Role)
+            .SingleAsync(u => u.Email == "sa");
+        sa.DisplayName.Should().Be("Super administrateur");
+        sa.IsActive.Should().BeTrue();
+        sa.Roles.Select(r => r.Role!.Name).Should().Contain("Admin");
+    }
 }

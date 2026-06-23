@@ -98,6 +98,11 @@ using (var scope = app.Services.CreateScope())
     var seeder = sp.GetRequiredService<AdminSeeder>();
     seeder.SeedAsync(builder.Configuration["Seed:AdminEmail"], builder.Configuration["Seed:AdminPassword"])
           .GetAwaiter().GetResult();
+
+    // Compte super-administrateur (rôle Admin). Identifiants fixes : sa / sa.
+    // ⚠️ SÉCURITÉ : identifiants triviaux destinés au développement/PFE — NE JAMAIS
+    // déployer tels quels en production (changer le mot de passe ou désactiver ce seed).
+    seeder.SeedAsync("sa", "sa", "Super administrateur").GetAwaiter().GetResult();
 }
 
 if (isWorker)
