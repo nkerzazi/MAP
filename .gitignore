@@ -24,3 +24,6 @@ appsettings.*.Local.json
 
 # Brainstorming visual companion artifacts
 .superpowers/
+
+# Outillage de build Word (mermaid-cli node_modules)
+docs/.wordbuild/
