@@ -1,0 +1,14 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - link "MAP Vidéo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - text: MAP Vidéo
+    - generic [ref=e8]:
+      - button "FR · ع" [ref=e9] [cursor=pointer]
+      - link "Connexion" [ref=e10] [cursor=pointer]:
+        - /url: /auth/login
+  - main [ref=e11]:
+    - article [ref=e39]:
+      - heading "Demo MAP - mire de test" [level=1] [ref=e42]
+      - paragraph [ref=e43]: Video de demonstration du pipeline HLS
+  - contentinfo [ref=e26]: Maghreb Arabe Presse — plateforme vidéo interne

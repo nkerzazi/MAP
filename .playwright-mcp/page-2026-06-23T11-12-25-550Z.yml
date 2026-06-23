@@ -1,0 +1,28 @@
+- generic [ref=e13]:
+  - complementary [ref=e14]:
+    - link "MAP Studio" [ref=e15] [cursor=pointer]:
+      - /url: /
+      - text: MAP Studio
+    - link "Tableau de bord" [ref=e17] [cursor=pointer]:
+      - /url: /studio
+    - link "Téléverser" [ref=e18] [cursor=pointer]:
+      - /url: /studio/upload
+  - generic [ref=e19]:
+    - banner [ref=e20]:
+      - generic [ref=e21]: Youssra (éditrice)
+      - button "Déconnexion" [ref=e22] [cursor=pointer]
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - heading "Mes vidéos" [level=1] [ref=e26]
+          - link "+ Téléverser" [ref=e27] [cursor=pointer]:
+            - /url: /studio/upload
+        - table [ref=e28]:
+          - rowgroup [ref=e29]:
+            - row "Titre Statut" [ref=e30]:
+              - columnheader "Titre" [ref=e31]
+              - columnheader "Statut" [ref=e32]
+              - columnheader [ref=e33]
+          - rowgroup [ref=e34]:
+            - row "Aucune vidéo pour l’instant." [ref=e35]:
+              - cell "Aucune vidéo pour l’instant." [ref=e36]

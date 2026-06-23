@@ -1,0 +1,10 @@
+- generic [ref=e4]:
+  - heading "Connexion" [level=1] [ref=e5]
+  - generic [ref=e6]:
+    - textbox "Email" [ref=e7]
+    - textbox "Mot de passe" [ref=e8]
+    - button "Se connecter" [ref=e9] [cursor=pointer]
+  - paragraph [ref=e10]:
+    - text: Pas de compte ?
+    - link "Créer un compte" [ref=e11] [cursor=pointer]:
+      - /url: /auth/register
