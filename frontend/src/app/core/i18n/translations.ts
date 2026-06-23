@@ -46,6 +46,10 @@ export const TRANSLATIONS: Record<Lang, Record<string, string>> = {
     'editor.edit.noCategory': '— Sans catégorie —',
     'editor.edit.publish': 'Publier',
     'editor.edit.archive': 'Archiver',
+    'editor.edit.saved': 'Métadonnées enregistrées.',
+    'editor.edit.published': 'Vidéo publiée.',
+    'editor.edit.archived': 'Vidéo archivée.',
+    'editor.edit.actionError': 'Action impossible.',
     // Admin
     'admin.nav.dashboard': 'Tableau de bord',
     'admin.nav.users': 'Utilisateurs',
@@ -125,6 +129,10 @@ export const TRANSLATIONS: Record<Lang, Record<string, string>> = {
     'editor.edit.noCategory': '— بدون فئة —',
     'editor.edit.publish': 'نشر',
     'editor.edit.archive': 'أرشفة',
+    'editor.edit.saved': 'تم حفظ البيانات.',
+    'editor.edit.published': 'تم نشر الفيديو.',
+    'editor.edit.archived': 'تمت أرشفة الفيديو.',
+    'editor.edit.actionError': 'تعذّر تنفيذ العملية.',
     // Admin
     'admin.nav.dashboard': 'لوحة التحكم',
     'admin.nav.users': 'المستخدمون',

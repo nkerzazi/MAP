@@ -1,12 +1,14 @@
 import { Component, Input, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { CatalogService } from '../../core/api/catalog.service';
 import { CategoryService } from '../../core/api/category.service';
 import { EditorVideoService } from '../../core/api/editor-video.service';
 import { Category } from '../../core/models/video.models';
 import { StatusBadgeComponent } from '../../shared/ui/status-badge.component';
 import { TranslatePipe } from '../../core/i18n/translate.pipe';
+import { TranslationService } from '../../core/i18n/translation.service';
 
 @Component({
   selector: 'app-video-edit',
@@ -30,7 +32,10 @@ import { TranslatePipe } from '../../core/i18n/translate.pipe';
         <button (click)="publish()" class="px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold">{{ 'editor.edit.publish' | t }}</button>
         <button (click)="archive()" class="px-4 py-2 rounded-lg border border-line">{{ 'editor.edit.archive' | t }}</button>
       </div>
-      <p *ngIf="message()" class="text-sm text-emerald-700">{{ message() }}</p>
+      <p *ngIf="notif() as n" class="text-sm font-semibold"
+         [class.text-emerald-700]="n.ok" [class.text-map-red]="!n.ok">
+        {{ (n.ok ? '✓ ' : '⚠ ') + n.text }}
+      </p>
     </div>
   `
 })
@@ -39,6 +44,7 @@ export class VideoEditComponent implements OnInit {
   private catalog = inject(CatalogService);
   private categoryApi = inject(CategoryService);
   private api = inject(EditorVideoService);
+  private ts = inject(TranslationService);
 
   title = '';
   description = '';
@@ -46,7 +52,7 @@ export class VideoEditComponent implements OnInit {
   tagsCsv = '';
   status = signal('Draft');
   categories = signal<Category[]>([]);
-  message = signal<string | null>(null);
+  notif = signal<{ ok: boolean; text: string } | null>(null);
 
   ngOnInit(): void {
     this.categoryApi.list().subscribe((cs) => this.categories.set(cs));
@@ -65,12 +71,32 @@ export class VideoEditComponent implements OnInit {
   save(): void {
     this.api.update(this.id, {
       title: this.title, description: this.description || null, categoryId: this.categoryId, tags: this.tags()
-    }).subscribe((v) => { this.status.set(v.status); this.message.set('Métadonnées enregistrées.'); });
+    }).subscribe({
+      next: (v) => { this.status.set(v.status); this.ok('editor.edit.saved'); },
+      error: (e) => this.fail(e)
+    });
   }
   publish(): void {
-    this.api.publish(this.id).subscribe(() => { this.status.set('Published'); this.message.set('Vidéo publiée.'); });
+    this.api.publish(this.id).subscribe({
+      next: () => { this.status.set('Published'); this.ok('editor.edit.published'); },
+      error: (e) => this.fail(e)
+    });
   }
   archive(): void {
-    this.api.archive(this.id).subscribe(() => { this.status.set('Archived'); this.message.set('Vidéo archivée.'); });
+    this.api.archive(this.id).subscribe({
+      next: () => { this.status.set('Archived'); this.ok('editor.edit.archived'); },
+      error: (e) => this.fail(e)
+    });
+  }
+
+  private ok(key: string): void {
+    this.notif.set({ ok: true, text: this.ts.t(key) });
+  }
+  /** Échec : affiche le motif exact renvoyé par le serveur (ProblemDetails) si présent. */
+  private fail(e: unknown): void {
+    const detail = e instanceof HttpErrorResponse
+      ? (e.error?.detail ?? e.error?.title ?? this.ts.t('editor.edit.actionError'))
+      : this.ts.t('editor.edit.actionError');
+    this.notif.set({ ok: false, text: detail });
   }
 }

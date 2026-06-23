@@ -32,4 +32,37 @@ describe('VideoEditComponent', () => {
     expect(req.request.body.tags).toEqual(['a', 'b']);
     req.flush({});
   });
+
+  function load() {
+    const fixture = TestBed.createComponent(VideoEditComponent);
+    fixture.componentRef.setInput('id', 'v1');
+    fixture.detectChanges();
+    http.expectOne('/api/v1/videos/v1').flush({
+      id: 'v1', title: 'T', description: null, slug: 's', status: 'Ready',
+      categoryName: null, durationSeconds: null, publishedAt: null, tags: [], renditions: []
+    });
+    http.expectOne('/api/v1/categories').flush([]);
+    fixture.detectChanges();
+    return fixture;
+  }
+
+  it('publier (succès) : notification OK affichée', () => {
+    const fixture = load();
+    fixture.componentInstance.publish();
+    http.expectOne('/api/v1/videos/v1/publish').flush(null);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.notif()?.ok).toBe(true);
+    expect(fixture.nativeElement.textContent).toContain('publiée');
+  });
+
+  it('publier (409) : affiche le motif exact du serveur', () => {
+    const fixture = load();
+    fixture.componentInstance.publish();
+    http.expectOne('/api/v1/videos/v1/publish').flush(
+      { detail: 'Publication impossible depuis l’état Draft.' },
+      { status: 409, statusText: 'Conflict' });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.notif()?.ok).toBe(false);
+    expect(fixture.nativeElement.textContent).toContain('Draft');
+  });
 });
