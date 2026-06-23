@@ -32,14 +32,13 @@ describe('VideoUploadComponent', () => {
     expect(nav).toHaveBeenCalledWith(['/studio/videos', 'v1', 'edit']);
   });
 
-  it('le bouton « Choisir » ouvre l’explorateur (déclenche l’input fichier masqué)', () => {
+  it('le label « Choisir » est associé à l’input fichier (ouvre l’explorateur nativement)', () => {
     const fixture = TestBed.createComponent(VideoUploadComponent);
     fixture.detectChanges();
     const input: HTMLInputElement = fixture.nativeElement.querySelector('input[type=file]');
-    const clickSpy = jest.spyOn(input, 'click');
-    const chooseBtn = Array.from(fixture.nativeElement.querySelectorAll('button'))
-      .find((el) => (el as HTMLElement).textContent?.includes('Choisir')) as HTMLButtonElement;
-    chooseBtn.click();
-    expect(clickSpy).toHaveBeenCalled();
+    const label = Array.from(fixture.nativeElement.querySelectorAll('label'))
+      .find((el) => (el as HTMLElement).textContent?.includes('Choisir')) as HTMLLabelElement;
+    expect(input.id).toBeTruthy();
+    expect(label.getAttribute('for')).toBe(input.id);
   });
 });

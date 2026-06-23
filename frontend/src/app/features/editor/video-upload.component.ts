@@ -21,12 +21,12 @@ const CHUNK_SIZE = 5 * 1024 * 1024;
       <textarea [(ngModel)]="description" name="description" placeholder="{{ 'editor.upload.descPlaceholder' | t }}"
                 class="w-full px-3 py-2 rounded-lg border border-line"></textarea>
 
-      <input #fileInput type="file" accept="video/*" (change)="onFile($event)" class="hidden" />
+      <input id="video-file" type="file" accept="video/*" (change)="onFile($event)" class="hidden" />
       <div class="flex items-center gap-3">
-        <button type="button" (click)="fileInput.click()"
-                class="px-4 py-2 rounded-lg border border-ink text-ink font-semibold hover:bg-paper">
+        <label for="video-file"
+               class="cursor-pointer inline-block px-4 py-2 rounded-lg border border-ink text-ink font-semibold hover:bg-paper">
           {{ 'editor.upload.choose' | t }}
-        </button>
+        </label>
         <span class="text-sm" [class.text-ink]="file" [class.text-muted]="!file">
           {{ file ? file.name : ('editor.upload.noFile' | t) }}
         </span>
