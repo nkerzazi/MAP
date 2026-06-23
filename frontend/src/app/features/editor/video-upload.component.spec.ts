@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 import { VideoUploadComponent } from './video-upload.component';
 import { EditorVideoService } from '../../core/api/editor-video.service';
 
@@ -40,5 +41,17 @@ describe('VideoUploadComponent', () => {
       .find((el) => (el as HTMLElement).textContent?.includes('Choisir')) as HTMLLabelElement;
     expect(input.id).toBeTruthy();
     expect(label.getAttribute('for')).toBe(input.id);
+  });
+
+  it('au 413 : message clair « trop volumineux » + détail technique avec le statut', async () => {
+    api.create.mockReturnValueOnce(throwError(() =>
+      new HttpErrorResponse({ status: 413, statusText: 'Payload Too Large', url: '/api/v1/videos' })));
+    const fixture = TestBed.createComponent(VideoUploadComponent);
+    const cmp = fixture.componentInstance;
+    cmp.title = 'X';
+    cmp.file = new File([new Uint8Array(1024)], 'v.mp4', { type: 'video/mp4' });
+    await cmp.submit();
+    expect(cmp.error()).toContain('volumineux');
+    expect(cmp.errorDetail()).toContain('413');
   });
 });
