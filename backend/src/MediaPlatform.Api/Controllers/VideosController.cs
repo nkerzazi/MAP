@@ -189,9 +189,12 @@ public class VideosController : ControllerBase
         return Ok(new { id = video.Id });
     }
 
-    /// <summary>Téléverse un chunk (octets bruts dans le corps de la requête).</summary>
+    /// <summary>Téléverse un chunk (octets bruts dans le corps de la requête).
+    /// Limite de taille relevée à 10 Go sur ce seul endpoint (cohérence avec Nginx) ;
+    /// les autres endpoints conservent la protection Kestrel par défaut (30 Mo).</summary>
     [HttpPost("{id:guid}/upload/chunk")]
     [Authorize(Roles = "Editeur")]
+    [RequestSizeLimit(10L * 1024 * 1024 * 1024)]
     public async Task<IActionResult> UploadChunk(Guid id, [FromQuery] int index, CancellationToken ct)
     {
         if (!await _db.Videos.AnyAsync(v => v.Id == id && v.Status == VideoStatus.Draft, ct))
