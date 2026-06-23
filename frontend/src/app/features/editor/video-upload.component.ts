@@ -45,6 +45,7 @@ const CHUNK_SIZE = 5 * 1024 * 1024;
       </div>
       <button (click)="submit()" [disabled]="uploading() || !file || !title"
               class="px-4 py-2 rounded-lg bg-ink text-white font-semibold disabled:opacity-50">{{ 'editor.upload.start' | t }}</button>
+      <p *ngIf="!uploading() && (!file || !title)" class="text-xs text-muted">{{ 'editor.upload.hint' | t }}</p>
     </div>
   `
 })
