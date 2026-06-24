@@ -1,0 +1,23 @@
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - link "MAP Studio" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - text: MAP Studio
+    - link "Tableau de bord" [ref=e8] [cursor=pointer]:
+      - /url: /studio
+    - link "Téléverser" [ref=e9] [cursor=pointer]:
+      - /url: /studio/upload
+  - generic [ref=e10]:
+    - banner [ref=e11]:
+      - generic [ref=e12]: Youssra (éditrice)
+      - button "Déconnexion" [ref=e13] [cursor=pointer]
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - heading "Téléverser une vidéo" [level=1] [ref=e16]
+        - generic [ref=e17]:
+          - textbox "Titre" [ref=e18]: Démo upload navigateur
+          - textbox "Description" [ref=e19]
+          - generic [ref=e20]:
+            - generic [ref=e21] [cursor=pointer]: Choisir une vidéo…
+            - generic [ref=e22]: demo.mp4
+          - button "Lancer le téléversement" [ref=e23] [cursor=pointer]

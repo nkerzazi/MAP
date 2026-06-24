@@ -1,8 +1,8 @@
-# Override local : Postgres publié sur 55433 (5432 et 55432 déjà occupés sur l'hôte ;
-# l'API s'y connecte de toute façon en interne via le réseau Docker). L'API est exposée
-# sur 5080 (port attendu par le proxy du frontend en dev).
+# Override local : ne publie PAS PostgreSQL sur l'hôte (le port 5432 est occupé par le
+# PostgreSQL natif Windows ; l'API s'y connecte de toute façon via le réseau Docker interne).
+# L'API reste exposée sur 5080 (en plus du 8080 de base) pour un accès direct éventuel.
 services:
   postgres:
-    ports: ["55433:5432"]
+    ports: !reset []
   api:
     ports: ["5080:8080"]

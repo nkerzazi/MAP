@@ -1,0 +1,42 @@
+[     495ms] ReferenceError: jQuery is not defined
+    at https://www.map.ma/nos-produits-et-services/digital/:509:1
+[     496ms] ReferenceError: jQuery is not defined
+    at https://www.map.ma/nos-produits-et-services/digital/:573:1
+[     647ms] [LOG] JQMIGRATE: Migrate is installed, version 3.3.2 @ https://www.map.ma/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2:1
+[    3279ms] [WARNING] jQuery.Deferred exception: jwplayer is not defined ReferenceError: jwplayer is not defined
+    at HTMLDocument.<anonymous> (https://www.map.ma/nos-produits-et-services/digital/:1905:2)
+    at e (https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30038)
+    at https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30340 undefined @ https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:1
+[    3282ms] ReferenceError: jwplayer is not defined
+    at HTMLDocument.<anonymous> (https://www.map.ma/nos-produits-et-services/digital/:1905:2)
+    at e (https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30038)
+    at https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30340
+[   47898ms] ReferenceError: jQuery is not defined
+    at https://www.map.ma/nos-produits-et-services/media/:509:1
+[   47899ms] ReferenceError: jQuery is not defined
+    at https://www.map.ma/nos-produits-et-services/media/:573:1
+[   48238ms] [LOG] JQMIGRATE: Migrate is installed, version 3.3.2 @ https://www.map.ma/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2:1
+[   49438ms] [WARNING] jQuery.Deferred exception: jwplayer is not defined ReferenceError: jwplayer is not defined
+    at HTMLDocument.<anonymous> (https://www.map.ma/nos-produits-et-services/media/:1831:2)
+    at e (https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30038)
+    at https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30340 undefined @ https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:1
+[   49447ms] ReferenceError: jwplayer is not defined
+    at HTMLDocument.<anonymous> (https://www.map.ma/nos-produits-et-services/media/:1831:2)
+    at e (https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30038)
+    at https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30340
+[   59338ms] ReferenceError: jQuery is not defined
+    at https://www.map.ma/nos-produits-et-services/edition/:509:1
+[   59339ms] ReferenceError: jQuery is not defined
+    at https://www.map.ma/nos-produits-et-services/edition/:573:1
+[   59458ms] [LOG] JQMIGRATE: Migrate is installed, version 3.3.2 @ https://www.map.ma/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2:1
+[   59632ms] [WARNING] jQuery.Deferred exception: jwplayer is not defined ReferenceError: jwplayer is not defined
+    at HTMLDocument.<anonymous> (https://www.map.ma/nos-produits-et-services/edition/:1808:2)
+    at e (https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30038)
+    at https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30340 undefined @ https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:1
+[   59638ms] ReferenceError: jwplayer is not defined
+    at HTMLDocument.<anonymous> (https://www.map.ma/nos-produits-et-services/edition/:1808:2)
+    at e (https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30038)
+    at https://www.map.ma/wp-includes/js/jquery/jquery.min.js?ver=3.6.0:2:30340
+[   62631ms] [WARNING] The resource https://www.map.ma/wp-content/themes/hub/assets/vendors/liquid-icon/lqd-essentials/fonts/lqd-essentials.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://www.map.ma/nos-produits-et-services/edition/:0
+[   98949ms] [WARNING] The resource https://www.map.ma/wp-content/themes/hub/assets/vendors/liquid-icon/lqd-essentials/fonts/lqd-essentials.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://www.map.ma/nos-produits-et-services/edition/:0
+[  116257ms] [WARNING] The resource https://www.map.ma/wp-content/themes/hub/assets/vendors/liquid-icon/lqd-essentials/fonts/lqd-essentials.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally. @ https://www.map.ma/nos-produits-et-services/edition/:0

@@ -1,0 +1,24 @@
+[     129ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[  577903ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[  595673ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 1880597ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 1943937ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 1986960ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 1994044ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/register:0
+[ 2000217ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 2012406ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/register:0
+[ 2033101ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 2041411ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/register:0
+[ 2097976ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 2172768ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 2230382ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 2449613ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[ 2449671ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:4200/:0
+[ 2989478ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 2989652ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 3646237ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 3646514ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 3665803ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 3665945ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[ 3687374ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[ 3687544ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0

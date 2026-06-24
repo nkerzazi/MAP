@@ -1,0 +1,68 @@
+- generic [ref=e13]:
+  - complementary [ref=e14]:
+    - link "MAP Studio" [ref=e15] [cursor=pointer]:
+      - /url: /
+      - text: MAP Studio
+    - link "Tableau de bord" [ref=e17] [cursor=pointer]:
+      - /url: /studio
+    - link "Téléverser" [ref=e18] [cursor=pointer]:
+      - /url: /studio/upload
+  - generic [ref=e19]:
+    - banner [ref=e20]:
+      - generic [ref=e21]: Youssra (éditrice)
+      - button "Déconnexion" [ref=e22] [cursor=pointer]
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - heading "Mes vidéos" [level=1] [ref=e26]
+          - link "+ Téléverser" [ref=e27] [cursor=pointer]:
+            - /url: /studio/upload
+        - table [ref=e28]:
+          - rowgroup [ref=e29]:
+            - row "Titre Statut" [ref=e30]:
+              - columnheader "Titre" [ref=e31]
+              - columnheader "Statut" [ref=e32]
+              - columnheader [ref=e33]
+          - rowgroup [ref=e34]:
+            - row "Demo MAP - mire de test Publiée Éditer" [ref=e35]:
+              - cell "Demo MAP - mire de test" [ref=e36]
+              - cell "Publiée" [ref=e37]:
+                - generic [ref=e39]: Publiée
+              - cell "Éditer" [ref=e40]:
+                - link "Éditer" [ref=e41] [cursor=pointer]:
+                  - /url: /studio/videos/80dac86a-e042-44fb-854a-9b12f2945ecf/edit
+            - row "Diag 35Mo Brouillon Éditer" [ref=e42]:
+              - cell "Diag 35Mo" [ref=e43]
+              - cell "Brouillon" [ref=e44]:
+                - generic [ref=e46]: Brouillon
+              - cell "Éditer" [ref=e47]:
+                - link "Éditer" [ref=e48] [cursor=pointer]:
+                  - /url: /studio/videos/a8b5ceb4-0f04-46c7-a49d-6a292345589b/edit
+            - row "a Prête Éditer" [ref=e49]:
+              - cell "a" [ref=e50]
+              - cell "Prête" [ref=e51]:
+                - generic [ref=e53]: Prête
+              - cell "Éditer" [ref=e54]:
+                - link "Éditer" [ref=e55] [cursor=pointer]:
+                  - /url: /studio/videos/b627b666-73a5-40fb-b535-ff0b085b58aa/edit
+            - row "Diag Nginx Brouillon Éditer" [ref=e56]:
+              - cell "Diag Nginx" [ref=e57]
+              - cell "Brouillon" [ref=e58]:
+                - generic [ref=e60]: Brouillon
+              - cell "Éditer" [ref=e61]:
+                - link "Éditer" [ref=e62] [cursor=pointer]:
+                  - /url: /studio/videos/5d86370d-0f80-41dd-b77e-28df5e3e3801/edit
+            - row "Sa Majesté le Roi Mohammed VI visite Tétouan Brouillon Éditer" [ref=e63]:
+              - cell "Sa Majesté le Roi Mohammed VI visite Tétouan" [ref=e64]
+              - cell "Brouillon" [ref=e65]:
+                - generic [ref=e67]: Brouillon
+              - cell "Éditer" [ref=e68]:
+                - link "Éditer" [ref=e69] [cursor=pointer]:
+                  - /url: /studio/videos/2785604d-efcb-4d00-8139-70c5677e5347/edit
+            - row "Test upload diag Brouillon Éditer" [ref=e70]:
+              - cell "Test upload diag" [ref=e71]
+              - cell "Brouillon" [ref=e72]:
+                - generic [ref=e74]: Brouillon
+              - cell "Éditer" [ref=e75]:
+                - link "Éditer" [ref=e76] [cursor=pointer]:
+                  - /url: /studio/videos/66c5a579-655e-4972-8bec-bc691f5eb95d/edit

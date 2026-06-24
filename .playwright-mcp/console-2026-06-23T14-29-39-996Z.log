@@ -1,0 +1,12 @@
+[     264ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[     441ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[20585728ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[20585760ms] [ERROR] Failed to load resource: net::ERR_NETWORK_IO_SUSPENDED @ http://localhost:4200/:0
+[20607255ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181
+[20997260ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:4200/favicon.ico:0
+[21028795ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[21159147ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:4200/api/v1/auth/login:0
+[21283692ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[22068337ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://localhost:4200/auth/login:0
+[23995080ms] [LOG] [vite] server connection lost. Polling for restart... @ http://localhost:4200/@vite/client:553
+[23995750ms] [LOG] Angular is running in development mode. @ http://localhost:4200/@fs/C:/MAP/frontend/.angular/cache/17.3.17/vite/deps/chunk-PCGAWVWW.js?v=6ba8af6b:17181

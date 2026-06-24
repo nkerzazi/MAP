@@ -1,5 +1,16 @@
 # Pile auto-hébergée complète pour la plateforme vidéo MAP.
+# Lance d'un coup : base de données, backend (API + worker) et frontend.
 # Aucun service externe : tout tourne sur l'infrastructure de la MAP.
+#
+# Démarrage :  docker compose up -d --build
+# Accès app :  http://localhost        (SPA Angular servie par Nginx, /api proxifié)
+#
+# SEED DES DONNÉES (exécuté automatiquement dans le conteneur api au démarrage) :
+#   - les rôles RBAC (Admin / Editeur / Visiteur) sont seedés via les migrations EF Core ;
+#   - les comptes admin et super-admin sont créés par AdminSeeder (idempotent) :
+#       • admin@map.ma          (cf. Seed__AdminEmail / Seed__AdminPassword ci-dessous)
+#       • sa / sa               (super-administrateur — à NE PAS utiliser en production)
+#   Les migrations + le seed tournent à chaque démarrage de l'API (idempotents).
 services:
   postgres:
     image: postgres:16
@@ -9,6 +20,11 @@ services:
       POSTGRES_PASSWORD: media
     volumes: [pgdata:/var/lib/postgresql/data]
     ports: ["5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U media -d mediaplatform"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
 
   redis:
     image: redis:7
@@ -23,9 +39,17 @@ services:
     volumes: [miniodata:/data]
     ports: ["9000:9000", "9001:9001"]
 
+  # Backend API. Applique les migrations et exécute le seed au démarrage (voir en-tête).
   api:
     build: { context: ./backend, dockerfile: src/MediaPlatform.Api/Dockerfile }
-    depends_on: [postgres, redis, minio]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      redis:
+        condition: service_started
+    restart: unless-stopped
     ports: ["8080:8080"]
     environment:
       ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=mediaplatform;Username=media;Password=media"
@@ -33,12 +57,22 @@ services:
       Minio__AccessKey: "minioadmin"
       Minio__SecretKey: "minioadmin"
       Minio__UseSsl: "false"
+      # --- Seed du compte administrateur (créé au démarrage s'il n'existe pas) ---
+      Seed__AdminEmail: "admin@map.ma"
+      Seed__AdminPassword: "ChangeMe!Admin2026"
 
-  # Worker Hangfire (transcodage FFmpeg → HLS). Image incluant ffmpeg.
+  # Worker Hangfire (transcodage FFmpeg → HLS). Même image que l'API (inclut ffmpeg).
   worker:
     build: { context: ./backend, dockerfile: src/MediaPlatform.Api/Dockerfile }
     command: ["--worker"]
-    depends_on: [postgres, redis, minio]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      redis:
+        condition: service_started
+    restart: unless-stopped
     environment:
       ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=mediaplatform;Username=media;Password=media"
       Minio__Endpoint: "minio:9000"
@@ -46,11 +80,12 @@ services:
       Minio__SecretKey: "minioadmin"
       Minio__UseSsl: "false"
 
-  nginx:
-    image: nginx:alpine
+  # Frontend Angular : build de la SPA puis service via Nginx, qui proxifie /api vers l'API.
+  frontend:
+    build: { context: ./frontend, dockerfile: Dockerfile }
     depends_on: [api]
+    restart: unless-stopped
     ports: ["80:80"]
-    volumes: ["./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro"]
 
 volumes:
   pgdata:
